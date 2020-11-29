@@ -1,5 +1,5 @@
 <?php
-namespace CSD\Image\Format\PNG;
+namespace Ycs77\ImageMetadata\Format\PNG;
 
 /**
  * @author Daniel Chesterton <daniel@chestertondevelopment.com>

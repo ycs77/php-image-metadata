@@ -1,9 +1,9 @@
 <?php
-namespace CSD\Image\Format;
+namespace Ycs77\ImageMetadata\Format;
 
-use CSD\Image\Metadata\UnsupportedException;
-use CSD\Image\Metadata\Xmp;
-use CSD\Image\Image;
+use Ycs77\ImageMetadata\Metadata\UnsupportedException;
+use Ycs77\ImageMetadata\Metadata\Xmp;
+use Ycs77\ImageMetadata\Image;
 
 /**
  * @author Daniel Chesterton <daniel@chestertondevelopment.com>

@@ -1,10 +1,10 @@
 <?php
-namespace CSD\Image\Tests\Metadata\Reader;
+namespace Ycs77\ImageMetadata\Tests\Metadata\Reader;
 
-use CSD\Image\Metadata\Iptc;
+use Ycs77\ImageMetadata\Metadata\Iptc;
 
 /**
- * @coversDefaultClass \CSD\Image\Metadata\Iptc
+ * @coversDefaultClass \Ycs77\ImageMetadata\Metadata\Iptc
  */
 class IptcTest extends \PHPUnit_Framework_TestCase
 {

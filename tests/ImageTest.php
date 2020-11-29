@@ -1,15 +1,15 @@
 <?php
 
-namespace CSD\Image\Tests;
+namespace Ycs77\ImageMetadata\Tests;
 
-use CSD\Image\Image;
-use CSD\Image\Format\PNG;
-use CSD\Image\Format\JPEG;
+use Ycs77\ImageMetadata\Image;
+use Ycs77\ImageMetadata\Format\PNG;
+use Ycs77\ImageMetadata\Format\JPEG;
 
 /**
  * @author Daniel Chesterton <daniel@chestertondevelopment.com>
  *
- * @coversDefaultClass \CSD\Image
+ * @coversDefaultClass \Ycs77\ImageMetadata
  */
 class ImageTest extends \PHPUnit_Framework_TestCase
 {

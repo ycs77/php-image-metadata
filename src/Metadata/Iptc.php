@@ -1,5 +1,5 @@
 <?php
-namespace CSD\Image\Metadata;
+namespace Ycs77\ImageMetadata\Metadata;
 
 /**
  * Class to read IPTC metadata from an image.

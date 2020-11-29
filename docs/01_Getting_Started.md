@@ -11,17 +11,17 @@ composer require dchesterton/image
 
 Currently the library supports JPEG, ....
 
-Each supported image format has its own class in the `CSD\Image\Format` namespace.
+Each supported image format has its own class in the `Ycs77\ImageMetadata\Format` namespace.
 
 ## Opening an image
 
 ### From a file
 
-The easiest way to open a file is using the `CSD\Image\Image::fromFile` method, which will guess the correct file format
+The easiest way to open a file is using the `Ycs77\ImageMetadata\Image::fromFile` method, which will guess the correct file format
 from the file's extension.
 
 ```php
-use CSD\Image\Image;
+use Ycs77\ImageMetadata\Image;
 
 $image = Image::fromFile('yourfile.jpg');
 ...
@@ -31,8 +31,8 @@ If you know the file format in advance or if the file name does not have an exte
 file format classes in the same way:
 
 ```php
-use CSD\Image\Format\JPEG;
-use CSD\Image\Format\PNG;
+use Ycs77\ImageMetadata\Format\JPEG;
+use Ycs77\ImageMetadata\Format\PNG;
 
 $jpeg = JPEG::fromFile('yourfile.jpg');
 $png = PNG::fromFile('yourfile.png');
@@ -47,7 +47,7 @@ Sometimes you will have a file as a binary string, e.g. if you've stored it in a
 first argument to any of the file type classes.
 
 ```php
-use CSD\Image\Format\JPEG;
+use Ycs77\ImageMetadata\Format\JPEG;
 
 $data = get_my_image(); // fetched from database etc.
 $image = JPEG::fromString($data);

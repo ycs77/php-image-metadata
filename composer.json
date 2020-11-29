@@ -1,23 +1,29 @@
 {
-    "name": "dchesterton/image",
+    "name": "ycs77/image-metadata",
     "license": "MIT",
+    "description": "The image metadata Library. Support panorama image.",
     "keywords": ["Image", "Photo", "Metadata", "XMP", "IPTC", "Exif"],
-    "description": "Image metadata library",
     "authors": [
         {
             "name": "Daniel Chesterton",
             "email": "daniel@chestertondevelopment.com",
             "homepage": "http://www.chestertondevelopment.com",
             "role": "Developer"
+        },
+        {
+            "name": "Lucas Yang",
+            "email": "yangchenshin77@gmail.com"
         }
     ],
-    "autoload": {
-        "psr-4": { "CSD\\Image\\": "src/" }
-    },
     "require": {
-        "php": ">=5.5"
+        "php": "^5.5"
     },
     "require-dev": {
         "mockery/mockery": "~0.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ycs77\\ImageMetadata\\": "src/"
+        }
     }
 }

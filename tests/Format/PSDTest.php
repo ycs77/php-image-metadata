@@ -1,11 +1,11 @@
 <?php
-namespace CSD\Image\Tests\Format;
+namespace Ycs77\ImageMetadata\Tests\Format;
 
-use CSD\Image\Format\PSD;
-use CSD\Image\Metadata\Xmp;
+use Ycs77\ImageMetadata\Format\PSD;
+use Ycs77\ImageMetadata\Metadata\Xmp;
 
 /**
- * @coversDefaultClass \CSD\Image\Metadata\PSD
+ * @coversDefaultClass \Ycs77\ImageMetadata\Metadata\PSD
  */
 class PsdTest extends \PHPUnit_Framework_TestCase
 {

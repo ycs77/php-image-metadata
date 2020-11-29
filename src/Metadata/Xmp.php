@@ -1,5 +1,7 @@
 <?php
-namespace CSD\Image\Metadata;
+namespace Ycs77\ImageMetadata\Metadata;
+
+use Ycs77\ImageMetadata\Metadata\Panorama\HasPanorama;
 
 /**
  * Class to read XMP metadata from an image.
@@ -8,6 +10,8 @@ namespace CSD\Image\Metadata;
  */
 class Xmp
 {
+    use HasPanorama;
+
     /**
      *
      */
@@ -122,6 +126,8 @@ class Xmp
         if ($about) {
             $this->about = $about->nodeValue;
         }
+
+        $this->initializePanorama();
     }
 
     /**

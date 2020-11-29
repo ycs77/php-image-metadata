@@ -1,11 +1,11 @@
 <?php
-namespace CSD\Image;
+namespace Ycs77\ImageMetadata;
 
-use CSD\Image\Metadata\Aggregate;
-use CSD\Image\Metadata\UnsupportedException;
-use CSD\Image\Metadata\Exif;
-use CSD\Image\Metadata\Iptc;
-use CSD\Image\Metadata\Xmp;
+use Ycs77\ImageMetadata\Metadata\Aggregate;
+use Ycs77\ImageMetadata\Metadata\UnsupportedException;
+use Ycs77\ImageMetadata\Metadata\Exif;
+use Ycs77\ImageMetadata\Metadata\Iptc;
+use Ycs77\ImageMetadata\Metadata\Xmp;
 
 /**
  * @author Daniel Chesterton <daniel@chestertondevelopment.com>

@@ -1,12 +1,12 @@
 <?php
 
-namespace CSD\Image;
+namespace Ycs77\ImageMetadata;
 
-use CSD\Image\Format\JPEG;
-use CSD\Image\Format\PNG;
-use CSD\Image\Format\WebP;
-use CSD\Image\Metadata\Aggregate;
-use CSD\Image\Metadata\UnsupportedException;
+use Ycs77\ImageMetadata\Format\JPEG;
+use Ycs77\ImageMetadata\Format\PNG;
+use Ycs77\ImageMetadata\Format\WebP;
+use Ycs77\ImageMetadata\Metadata\Aggregate;
+use Ycs77\ImageMetadata\Metadata\UnsupportedException;
 
 /**
  * @author Daniel Chesterton <daniel@chestertondevelopment.com>

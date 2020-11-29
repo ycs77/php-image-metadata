@@ -1,5 +1,5 @@
 <?php
-namespace CSD\Image\Format\WebP;
+namespace Ycs77\ImageMetadata\Format\WebP;
 
 /**
  * @author Daniel Chesterton <daniel@chestertondevelopment.com>

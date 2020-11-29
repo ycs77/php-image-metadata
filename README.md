@@ -1,8 +1,12 @@
-Image metadata library (PHP 5.5+)
-=========
-[![Build Status](https://travis-ci.org/dchesterton/image.svg?branch=master)](https://travis-ci.org/dchesterton/image) [![Dependency Status](https://www.versioneye.com/user/projects/5494283bdd709d811f0004df/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5494283bdd709d811f0004df)
+# Image Metadata (PHP 5.5+)
 
-[![Latest Stable Version](https://poser.pugx.org/dchesterton/image/v/stable.svg)](https://packagist.org/packages/dchesterton/image) [![Total Downloads](https://poser.pugx.org/dchesterton/image/downloads.svg)](https://packagist.org/packages/dchesterton/image) [![Latest Unstable Version](https://poser.pugx.org/dchesterton/image/v/unstable.svg)](https://packagist.org/packages/dchesterton/image) [![License](https://poser.pugx.org/dchesterton/image/license.svg)](https://packagist.org/packages/dchesterton/image)
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Software License][ico-license]](LICENSE.md)
+[![Total Downloads][ico-downloads]][link-downloads]
+
+> Adapted from [dchesterton/image](https://packagist.org/packages/dchesterton/image). Support panorama image.
+
+The image metadata Library. Support panorama image.
 
 ## Warning: This library is pre-alpha and much of it is a WIP or simply not working at all. Proceed at your own risk.
 
@@ -162,3 +166,34 @@ $gps = $image->getAggregateMeta()->getGPS(); // checks EXIF and XMP
 
 $lat = $gps->getLatitude();
 ```
+
+### Set Panorama Image XMP Metadata
+
+```php
+use Ycs77\ImageMetadata\Image;
+use Ycs77\ImageMetadata\Metadata\Panorama\GPano;
+
+$image = Image::fromFile($filename);
+$image->getXmp()->setPanorama(function (GPano $gPano) {
+    return $gPano
+        ->projectionType()
+        ->usePanoramaViewer(true)
+        ->croppedAreaImageWidthPixels(8192)
+        ->croppedAreaImageHeightPixels(4096)
+        ->fullPanoWidthPixels(8192)
+        ->fullPanoHeightPixels(4096)
+        ->croppedAreaLeftPixels(0)
+        ->croppedAreaTopPixels(0)
+        ->stitchingSoftware('Rico Tester');
+});
+$image->save();
+```
+
+More GPano metadata see [Photo Sphere XMP Metadata](https://developers.google.com/streetview/spherical-metadata).
+
+[ico-version]: https://img.shields.io/packagist/v/ycs77/image-metadata?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/ycs77/image-metadata?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/ycs77/image-metadata
+[link-downloads]: https://packagist.org/packages/ycs77/image-metadata

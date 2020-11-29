@@ -1,6 +1,6 @@
 <?php
 
-namespace CSD\Image\Format\PSD;
+namespace Ycs77\ImageMetadata\Format\PSD;
 
 /**
  * Class for Image Resource Blocks.

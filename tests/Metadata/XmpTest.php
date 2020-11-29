@@ -1,12 +1,12 @@
 <?php
-namespace CSD\Image\Tests\Metadata;
+namespace Ycs77\ImageMetadata\Tests\Metadata;
 
-use CSD\Image\Metadata\JPEG;
-use CSD\Image\Metadata\JPEGSegment;
-use CSD\Image\Metadata\Xmp;
+use Ycs77\ImageMetadata\Metadata\JPEG;
+use Ycs77\ImageMetadata\Metadata\JPEGSegment;
+use Ycs77\ImageMetadata\Metadata\Xmp;
 
 /**
- * @coversDefaultClass \CSD\Image\Metadata\Xmp
+ * @coversDefaultClass \Ycs77\ImageMetadata\Metadata\Xmp
  */
 class XmpTest extends \PHPUnit_Framework_TestCase
 {
