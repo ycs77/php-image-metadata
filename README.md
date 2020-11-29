@@ -186,7 +186,7 @@ $image->getXmp()->setPanorama(function (GPano $gPano) {
         ->fullPanoHeightPixels(4096)
         ->croppedAreaLeftPixels(0)
         ->croppedAreaTopPixels(0)
-        ->stitchingSoftware('Rico Tester');
+        ->stitchingSoftware('Your App Name');
 });
 $image->save();
 ```
