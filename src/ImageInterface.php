@@ -1,10 +1,11 @@
 <?php
+
 namespace Ycs77\ImageMetadata;
 
 use Ycs77\ImageMetadata\Metadata\Aggregate;
-use Ycs77\ImageMetadata\Metadata\UnsupportedException;
 use Ycs77\ImageMetadata\Metadata\Exif;
 use Ycs77\ImageMetadata\Metadata\Iptc;
+use Ycs77\ImageMetadata\Metadata\UnsupportedException;
 use Ycs77\ImageMetadata\Metadata\Xmp;
 
 /**
@@ -12,7 +13,6 @@ use Ycs77\ImageMetadata\Metadata\Xmp;
  */
 interface ImageInterface
 {
-
     /**
      * @param $filename
      *

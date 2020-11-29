@@ -7,8 +7,8 @@ namespace Ycs77\ImageMetadata\Format\PSD;
  *
  * @author Joel Bernerman <joel.bernerman@aller.se>
  */
-class IRB {
-
+class IRB
+{
     protected $data;
     protected $resourceId;
     protected $pascalString;
@@ -64,7 +64,7 @@ class IRB {
     public function setData($data)
     {
         $this->data = $data;
+
         return $this;
     }
-
 }

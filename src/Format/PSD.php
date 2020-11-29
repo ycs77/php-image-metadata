@@ -2,17 +2,17 @@
 
 namespace Ycs77\ImageMetadata\Format;
 
+use Ycs77\ImageMetadata\Image;
 use Ycs77\ImageMetadata\Metadata\Exif;
 use Ycs77\ImageMetadata\Metadata\Iptc;
 use Ycs77\ImageMetadata\Metadata\Xmp;
-use Ycs77\ImageMetadata\Image;
 
 /**
  * @author Daniel Chesterton <daniel@chestertondevelopment.com>
  * @author Joel Bernerman <joel.bernerman@aller.se>
  */
-class PSD extends Image {
-
+class PSD extends Image
+{
     /**
      * File signature.
      */
@@ -41,7 +41,6 @@ class PSD extends Image {
     private $tmpHandle;
 
     /**
-     * 
      * @param type $fileHeader
      * @param type $IRBs
      * @param type $soIRS
@@ -50,7 +49,6 @@ class PSD extends Image {
      */
     private function __construct($fileHeader, $IRBs, $soIRS, $eoIRS, $tmpHandle, $filename = null)
     {
-
         $this->IRBs = $IRBs;
         $this->fileheader = $fileHeader;
         $this->soIRS = $soIRS;
@@ -76,7 +74,7 @@ class PSD extends Image {
             }
         }
         // Add if not present.
-        if (!$present) {
+        if (! $present) {
             $this->IRBs[] = new PSD\IRB(self::IRID_XMP, "\x00\x00", $xmp->getString());
         }
 
@@ -109,13 +107,13 @@ class PSD extends Image {
      */
     public function save($filename = null)
     {
-        $filename = $filename ? : $this->filename;
+        $filename = $filename ?: $this->filename;
 
         // Attempt to open the new psd file
         $handle = @fopen($filename, 'wb+');
 
         // Check if the file opened successfully
-        if (!$handle) {
+        if (! $handle) {
             throw new \Exception(sprintf('Could not open file %s', $filename));
         }
 
@@ -142,7 +140,7 @@ class PSD extends Image {
                 $IRBData .= "\x00";
             }
         }
-        $fileData = $this->fileheader . pack('N', strlen($IRBData)) . $IRBData;
+        $fileData = $this->fileheader.pack('N', strlen($IRBData)).$IRBData;
 
         fwrite($handle, $fileData);
         stream_copy_to_stream($this->tmpHandle, $handle, -1, $this->eoIRS);
@@ -186,6 +184,7 @@ class PSD extends Image {
     public static function fromImagick(\Imagick $imagick)
     {
         $imagick->setImageFormat('psd');
+
         return self::fromString($imagick->getImageBlob());
     }
 
@@ -230,7 +229,7 @@ class PSD extends Image {
             $eoIRS = $soIRS + 4 + $IRSLength['size'];
 
             // Read Resource blocks then stop.
-            $IRBs = array();
+            $IRBs = [];
             while (ftell($fileHandle) < $eoIRS) {
                 $IRBSignature = fread($fileHandle, 4);
                 if ($IRBSignature === self::IRB_SIGNATURE) {
@@ -242,10 +241,12 @@ class PSD extends Image {
             $tmpHandle = tmpfile();
             rewind($fileHandle);
             stream_copy_to_stream($fileHandle, $tmpHandle);
+
             return new self($fileHeader, $IRBs, $soIRS, $eoIRS, $tmpHandle, $filename);
         } finally {
             fclose($fileHandle);
         }
+
         return false;
     }
 
@@ -258,8 +259,7 @@ class PSD extends Image {
         if ($pascalStringLength == 0) {
             // Padding to even bytes.
             $pascalString .= fread($fileHandle, 1);
-        }
-        else {
+        } else {
             $pascalString .= fread($fileHandle, $pascalStringLength);
             // Padding to even bytes.
             if ($pascalStringLength & 1) {
@@ -291,7 +291,7 @@ class PSD extends Image {
     {
         $fileHandle = @fopen($filename, 'rb+');
 
-        if (!$fileHandle) {
+        if (! $fileHandle) {
             throw new \Exception(sprintf('Could not open file %s', $filename));
         }
 
@@ -303,7 +303,7 @@ class PSD extends Image {
      */
     public function getXmp()
     {
-        if (!$this->xmp) {
+        if (! $this->xmp) {
             $present = false;
             foreach ($this->IRBs as $IRB) {
                 if ($IRB->getResourceId() === self::IRID_XMP) {
@@ -312,7 +312,7 @@ class PSD extends Image {
                     break;
                 }
             }
-            if (!$present) {
+            if (! $present) {
                 $this->xmp = new Xmp();
             }
         }
@@ -325,7 +325,7 @@ class PSD extends Image {
      */
     public function getExif()
     {
-        if (!$this->exif) {
+        if (! $this->exif) {
             foreach ($this->IRBs as $IRB) {
                 if ($IRB->getResourceId() == self::IRID_EXIF1) {
                     $this->exif = new Exif($IRB->getData());
@@ -342,7 +342,7 @@ class PSD extends Image {
      */
     public function getIptc()
     {
-        if (!$this->iptc) {
+        if (! $this->iptc) {
             foreach ($this->IRBs as $IRB) {
                 if ($IRB->getResourceId() == self::IRID_IPTC) {
                     $this->iptc = new Iptc($IRB->getData());
@@ -353,5 +353,4 @@ class PSD extends Image {
 
         return $this->iptc;
     }
-
 }

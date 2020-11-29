@@ -1,4 +1,5 @@
 <?php
+
 namespace Ycs77\ImageMetadata\Metadata;
 
 /**
@@ -27,7 +28,7 @@ class Aggregate
         'transmissionReference' => ['xmp', 'iptc'],
         'urgency' => ['xmp', 'iptc'],
         'keywords' => ['xmp', 'iptc'],
-        'dateCreated' => ['xmp', 'iptc']
+        'dateCreated' => ['xmp', 'iptc'],
     ];
 
     /**
@@ -51,7 +52,7 @@ class Aggregate
     private $priority;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param Xmp  $xmp
      * @param Iptc $iptc
@@ -74,12 +75,13 @@ class Aggregate
     public function setPriority(array $priority)
     {
         foreach ($priority as $metaType) {
-            if (!in_array($metaType, ['xmp', 'iptc', 'exif'], true)) {
+            if (! in_array($metaType, ['xmp', 'iptc', 'exif'], true)) {
                 throw new \Exception('Priority can only contain xmp, iptc or exif');
             }
         }
 
         $this->priority = $priority;
+
         return $this;
     }
 
@@ -92,17 +94,17 @@ class Aggregate
     {
         foreach ($this->priority as $metaType) {
             // check if this meta type is supported for this field
-            if (!in_array($metaType, $this->fields[$field], true)) {
+            if (! in_array($metaType, $this->fields[$field], true)) {
                 continue;
             }
 
             $metaObject = $this->$metaType;
 
-            if (!$metaObject) {
+            if (! $metaObject) {
                 continue;
             }
 
-            $getter = 'get' . ucfirst($field);
+            $getter = 'get'.ucfirst($field);
             $value = $metaObject->$getter();
 
             if ($value) {
@@ -126,11 +128,11 @@ class Aggregate
         foreach ($supported as $metaType) {
             $metaObject = $this->$metaType;
 
-            if (!$metaObject) {
+            if (! $metaObject) {
                 continue;
             }
 
-            $setter = 'set' . ucfirst($field);
+            $setter = 'set'.ucfirst($field);
             $metaObject->$setter($value);
         }
 

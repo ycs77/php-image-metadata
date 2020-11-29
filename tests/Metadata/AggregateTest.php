@@ -1,12 +1,11 @@
 <?php
+
 namespace Ycs77\ImageMetadata\Tests\Metadata;
 
-use Ycs77\ImageMetadata\Format\JPEG;
-use Ycs77\ImageMetadata\Metadata\Iptc;
-use Ycs77\ImageMetadata\Metadata\Aggregate;
-use Ycs77\ImageMetadata\Metadata\Xmp;
-
 use Mockery as M;
+use Ycs77\ImageMetadata\Metadata\Aggregate;
+use Ycs77\ImageMetadata\Metadata\Iptc;
+use Ycs77\ImageMetadata\Metadata\Xmp;
 
 /**
  * Unit tests for {@see \Ycs77\ImageMetadata\Metadata\Aggregate}.
@@ -41,7 +40,7 @@ class AggregateTest extends \PHPUnit_Framework_TestCase
             ['transmissionReference'],
             ['urgency'],
             ['keywords'],
-            ['dateCreated']
+            ['dateCreated'],
         ];
     }
 
@@ -52,10 +51,10 @@ class AggregateTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetXmpIptcField($field)
     {
-        $method = 'get' . ucfirst($field);
+        $method = 'get'.ucfirst($field);
 
-        $xmpValue = ($field == 'dateCreated')? new \DateTime: 'XMP value';
-        $iptcValue = ($field == 'dateCreated')? new \DateTime: 'IPTC value';
+        $xmpValue = ($field == 'dateCreated') ? new \DateTime : 'XMP value';
+        $iptcValue = ($field == 'dateCreated') ? new \DateTime : 'IPTC value';
 
         $xmp = M::mock(Xmp::class);
         $xmp->shouldReceive($method)->once()->andReturn($xmpValue);
@@ -83,7 +82,7 @@ class AggregateTest extends \PHPUnit_Framework_TestCase
      */
     public function testXmpIptcFallThrough($field)
     {
-        $method = 'get' . ucfirst($field);
+        $method = 'get'.ucfirst($field);
 
         $xmp = M::mock(Xmp::class);
         $xmp->shouldReceive($method)->once()->andReturnNull();
@@ -106,7 +105,7 @@ class AggregateTest extends \PHPUnit_Framework_TestCase
     {
         $reader = new Aggregate;
 
-        $getter = 'get' . ucfirst($field);
+        $getter = 'get'.ucfirst($field);
 
         $this->assertNull($reader->$getter());
     }
@@ -116,8 +115,8 @@ class AggregateTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetXmpIptcField($field)
     {
-        $method = 'set' . ucfirst($field);
-        $value = ($field == 'dateCreated')? new \DateTime: 'value';
+        $method = 'set'.ucfirst($field);
+        $value = ($field == 'dateCreated') ? new \DateTime : 'value';
 
         $xmp = M::mock(Xmp::class);
         $xmp->shouldReceive($method)->once()->with($value);
@@ -137,8 +136,8 @@ class AggregateTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetXmpIptcFieldWhenNoProviders($field)
     {
-        $method = 'set' . ucfirst($field);
-        $value = ($field == 'dateCreated')? new \DateTime: 'value';
+        $method = 'set'.ucfirst($field);
+        $value = ($field == 'dateCreated') ? new \DateTime : 'value';
 
         $aggregate = new Aggregate;
 

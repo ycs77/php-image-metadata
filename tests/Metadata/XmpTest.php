@@ -1,8 +1,7 @@
 <?php
+
 namespace Ycs77\ImageMetadata\Tests\Metadata;
 
-use Ycs77\ImageMetadata\Metadata\JPEG;
-use Ycs77\ImageMetadata\Metadata\JPEGSegment;
 use Ycs77\ImageMetadata\Metadata\Xmp;
 
 /**
@@ -54,7 +53,7 @@ class XmpTest extends \PHPUnit_Framework_TestCase
             ['personsShown', ['A person', 'Another person']],
             ['featuredOrganisationName', ['Featured Organisation']],
             ['featuredOrganisationCode', ['Featured Organisation Code']],
-            ['IPTCScene', ['IPTC Scene']]
+            ['IPTCScene', ['IPTC Scene']],
         ];
     }
 
@@ -116,7 +115,7 @@ class XmpTest extends \PHPUnit_Framework_TestCase
             ['keywords', 'dc:subject'],
             ['personsShown', 'Iptc4xmpExt:PersonInImage'],
             ['iptcSubjectCodes', 'Iptc4xmpCore:SubjectCode'],
-            ['supplementalCategories', 'photoshop:SupplementalCategories']
+            ['supplementalCategories', 'photoshop:SupplementalCategories'],
         ];
     }
 
@@ -125,7 +124,7 @@ class XmpTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDataFromAllFile($field, $value)
     {
-        $getter = 'get' . ucfirst($field);
+        $getter = 'get'.ucfirst($field);
 
         $xmp = $this->getXmpFromFile();
         $this->assertEquals($value, $xmp->$getter());
@@ -157,10 +156,10 @@ class XmpTest extends \PHPUnit_Framework_TestCase
     public function testSetAttrFields($field, $xmlField)
     {
         $value = 'A test string, with utf €åƒ∂, and some xml chars such as <>"';
-        $expectedAttr = $xmlField . '="A test string, with utf €åƒ∂, and some xml chars such as &lt;&gt;&quot;"';
-        $expectedElement = '<' . $xmlField . '>A test string, with utf €åƒ∂, and some xml chars such as &lt;&gt;"</' . $xmlField . '>';
+        $expectedAttr = $xmlField.'="A test string, with utf €åƒ∂, and some xml chars such as &lt;&gt;&quot;"';
+        $expectedElement = '<'.$xmlField.'>A test string, with utf €åƒ∂, and some xml chars such as &lt;&gt;"</'.$xmlField.'>';
 
-        $setter = 'set' . ucfirst($field);
+        $setter = 'set'.ucfirst($field);
 
         // test with no meta data
         $xmp = new Xmp;
@@ -239,7 +238,7 @@ class XmpTest extends \PHPUnit_Framework_TestCase
      */
     public function testFromArray($field, $value)
     {
-        $getter = 'get' . ucfirst($field);
+        $getter = 'get'.ucfirst($field);
 
         $xmp = Xmp::fromArray([$field => $value]);
 
@@ -251,7 +250,7 @@ class XmpTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetNonExistentValue($field)
     {
-        $getter = 'get' . ucfirst($field);
+        $getter = 'get'.ucfirst($field);
 
         $xmp = new Xmp;
         $this->assertNull($xmp->$getter());
@@ -264,7 +263,7 @@ class XmpTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasChanges($field, $value)
     {
-        $setter = 'set' . ucfirst($field);
+        $setter = 'set'.ucfirst($field);
 
         $xmp = new Xmp;
 
@@ -400,7 +399,7 @@ class XmpTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetNullAttribute($field, $xmlField)
     {
-        $setter = 'set' . ucfirst($field);
+        $setter = 'set'.ucfirst($field);
 
         $xmp = new Xmp;
         $xmp->$setter($field);
@@ -457,7 +456,6 @@ class XmpTest extends \PHPUnit_Framework_TestCase
         ');
 
         $this->assertFalse($xmp->getDateCreated());
-
     }
 
     /**
@@ -475,7 +473,7 @@ class XmpTest extends \PHPUnit_Framework_TestCase
      */
     public function testFromFile()
     {
-        $this->assertInstanceOf(Xmp::class, Xmp::fromFile(__DIR__ . '/../Fixtures/all.XMP'));
+        $this->assertInstanceOf(Xmp::class, Xmp::fromFile(__DIR__.'/../Fixtures/all.XMP'));
     }
 
     /**
@@ -495,17 +493,17 @@ class XmpTest extends \PHPUnit_Framework_TestCase
      */
     private function assertValidList($type, $field, $xmlField, $value)
     {
-        $attributes = ($type == 'rdf:Alt')? ' xml:lang="x-default"': '';
+        $attributes = ($type == 'rdf:Alt') ? ' xml:lang="x-default"' : '';
 
-        $expected  = '<' . $xmlField . '><' . $type . '>';
+        $expected = '<'.$xmlField.'><'.$type.'>';
 
         foreach ((array) $value as $li) {
-            $expected .= '<rdf:li' . $attributes . '>' . $li . '</rdf:li>';
+            $expected .= '<rdf:li'.$attributes.'>'.$li.'</rdf:li>';
         }
 
-        $expected .= '</' . $type . '></' . $xmlField . '>';
+        $expected .= '</'.$type.'></'.$xmlField.'>';
 
-        $setter = 'set' . ucfirst($field);
+        $setter = 'set'.ucfirst($field);
 
         $xmp = new Xmp;
         $xmp->$setter($value);
@@ -532,7 +530,7 @@ class XmpTest extends \PHPUnit_Framework_TestCase
      */
     private function getXmpFromFile()
     {
-        return new Xmp(file_get_contents(__DIR__ . '/../Fixtures/all.XMP'));
+        return new Xmp(file_get_contents(__DIR__.'/../Fixtures/all.XMP'));
     }
 
     /**
@@ -542,6 +540,6 @@ class XmpTest extends \PHPUnit_Framework_TestCase
      */
     private function getXmpFromFile2()
     {
-        return new Xmp(file_get_contents(__DIR__ . '/../Fixtures/all2.XMP'));
+        return new Xmp(file_get_contents(__DIR__.'/../Fixtures/all2.XMP'));
     }
 }

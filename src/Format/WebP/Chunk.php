@@ -1,4 +1,5 @@
 <?php
+
 namespace Ycs77\ImageMetadata\Format\WebP;
 
 /**
@@ -63,7 +64,7 @@ class Chunk
             $data .= "\x00";
         }
 
-        return $this->type . pack('V', $length) . $data;
+        return $this->type.pack('V', $length).$data;
     }
 
     /**
@@ -74,6 +75,7 @@ class Chunk
     public function setData($data)
     {
         $this->data = $data;
+
         return $this;
     }
 }

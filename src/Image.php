@@ -26,6 +26,7 @@ abstract class Image implements ImageInterface
     public function setFilename($filename)
     {
         $this->filename = $filename;
+
         return $this;
     }
 
@@ -62,7 +63,7 @@ abstract class Image implements ImageInterface
     {
         $filename = $filename ?: $this->filename;
 
-        if (!$filename) {
+        if (! $filename) {
             throw new \Exception('Must provide a filename');
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace Ycs77\ImageMetadata\Tests\Format;
 
 use Ycs77\ImageMetadata\Format\PSD;
@@ -9,12 +10,12 @@ use Ycs77\ImageMetadata\Metadata\Xmp;
  */
 class PsdTest extends \PHPUnit_Framework_TestCase
 {
-        /**
+    /**
      * Test that PSD can read XMP embedded with Photoshop.
      */
     public function testGetXmpPhotoshop()
     {
-        $psd = PSD::fromFile(__DIR__ . '/../Fixtures/metaphotoshop.psd');
+        $psd = PSD::fromFile(__DIR__.'/../Fixtures/metaphotoshop.psd');
 
         $xmp = $psd->getXmp();
 
@@ -27,7 +28,7 @@ class PsdTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetXmpNoMeta()
     {
-        $psd = PSD::fromFile(__DIR__ . '/../Fixtures/nometa.psd');
+        $psd = PSD::fromFile(__DIR__.'/../Fixtures/nometa.psd');
 
         $xmp = $psd->getXmp();
 

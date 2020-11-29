@@ -139,7 +139,8 @@ class GPano implements IteratorAggregate
         return $this->attributes;
     }
 
-    public function getIterator() {
+    public function getIterator()
+    {
         return new ArrayIterator($this->attributes);
     }
 }

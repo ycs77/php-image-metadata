@@ -1,4 +1,5 @@
 <?php
+
 namespace Ycs77\ImageMetadata\Tests\Metadata\Reader;
 
 use Ycs77\ImageMetadata\Metadata\Iptc;
@@ -18,7 +19,7 @@ class IptcTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->meta = Iptc::fromFile(__DIR__ . '/../Fixtures/metapm.jpg');
+        $this->meta = Iptc::fromFile(__DIR__.'/../Fixtures/metapm.jpg');
     }
 
     /**
@@ -46,7 +47,7 @@ class IptcTest extends \PHPUnit_Framework_TestCase
             ['supplementalCategories'],
             ['transmissionReference'],
             ['urgency'],
-            ['keywords']
+            ['keywords'],
         ];
     }
 
@@ -72,7 +73,7 @@ class IptcTest extends \PHPUnit_Framework_TestCase
     public function tesstKeywords()
     {
         $this->assertEquals(
-            'Canvey Island, Carshalton Athletic, England, Essex, Football, Ryman Isthmian Premier League, Soccer, ' .
+            'Canvey Island, Carshalton Athletic, England, Essex, Football, Ryman Isthmian Premier League, Soccer, '.
             'Sport, Sports, The Prospects Stadium',
             $this->meta->getKeywords()
         );
@@ -88,7 +89,7 @@ class IptcTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSetMeta($field)
     {
-        $setter = 'set' . ucfirst($field);
+        $setter = 'set'.ucfirst($field);
 
         $value = 'test';
 
@@ -97,7 +98,7 @@ class IptcTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($iptc, $return);
 
-        $getter = 'get' . ucfirst($field);
+        $getter = 'get'.ucfirst($field);
 
         $this->assertSame($value, $iptc->$getter());
     }
@@ -107,7 +108,7 @@ class IptcTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasChanges($field)
     {
-        $setter = 'set' . ucfirst($field);
+        $setter = 'set'.ucfirst($field);
 
         $value = 'test';
 
@@ -125,7 +126,7 @@ class IptcTest extends \PHPUnit_Framework_TestCase
      */
     public function testNull($field)
     {
-        $getter = 'get' . ucfirst($field);
+        $getter = 'get'.ucfirst($field);
 
         $iptc = new Iptc;
 

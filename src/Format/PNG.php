@@ -1,9 +1,10 @@
 <?php
+
 namespace Ycs77\ImageMetadata\Format;
 
+use Ycs77\ImageMetadata\Image;
 use Ycs77\ImageMetadata\Metadata\UnsupportedException;
 use Ycs77\ImageMetadata\Metadata\Xmp;
-use Ycs77\ImageMetadata\Image;
 
 /**
  * @author Daniel Chesterton <daniel@chestertondevelopment.com>
@@ -55,7 +56,7 @@ class PNG extends Image
     public function getBytes()
     {
         if ($this->xmp && ($this->xmp->hasChanges() || $this->hasNewXmp)) {
-            $data = "XML:com.adobe.xmp\x00\x00\x00\x00\x00" . $this->xmp->getString();
+            $data = "XML:com.adobe.xmp\x00\x00\x00\x00\x00".$this->xmp->getString();
 
             $xmpChunk = $this->getXmpChunk();
 
@@ -85,7 +86,7 @@ class PNG extends Image
      */
     public function getXmp()
     {
-        if (!$this->xmp) {
+        if (! $this->xmp) {
             $xmpChunk = $this->getXmpChunk();
 
             if ($xmpChunk) {

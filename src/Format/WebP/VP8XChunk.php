@@ -1,4 +1,5 @@
 <?php
+
 namespace Ycs77\ImageMetadata\Format\WebP;
 
 /**
@@ -23,7 +24,7 @@ class VP8XChunk extends Chunk
     {
         $features = unpack('c', $this->data[0]);
 
-        return (bool) (($features[1] >> $n-1) & 1);
+        return (bool) (($features[1] >> $n - 1) & 1);
     }
 
     public function hasXmp()
@@ -33,16 +34,13 @@ class VP8XChunk extends Chunk
 
     public function hasExif()
     {
-
         $features = unpack('c', $this->data[0]);
 
         $byte = $features[1] & 4;
 
         var_dump($byte, $features[1]);
 
-
         $this->data[0] = pack('c', $byte);
-
 
         return $this->hasFeature(4);
     }

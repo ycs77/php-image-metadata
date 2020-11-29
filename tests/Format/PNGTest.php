@@ -22,7 +22,7 @@ class PNGTest extends \PHPUnit_Framework_TestCase
      */
     public function testFromFileInvalidPNG()
     {
-        PNG::fromFile(__DIR__ . '/../Fixtures/nometa.jpg');
+        PNG::fromFile(__DIR__.'/../Fixtures/nometa.jpg');
     }
 
     /**
@@ -31,7 +31,7 @@ class PNGTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetXmpWithMetadataWrittenInPhotoshop()
     {
-        $png = PNG::fromFile(__DIR__ . '/../Fixtures/metaphotoshop.png');
+        $png = PNG::fromFile(__DIR__.'/../Fixtures/metaphotoshop.png');
 
         $xmp = $png->getXmp();
 
@@ -45,7 +45,7 @@ class PNGTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetXmpWithMetaWrittenInPhotoMechanic()
     {
-        $png = PNG::fromFile(__DIR__ . '/../Fixtures/metapm.png');
+        $png = PNG::fromFile(__DIR__.'/../Fixtures/metapm.png');
 
         $xmp = $png->getXmp();
 
@@ -59,7 +59,7 @@ class PNGTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetXmpNoMeta()
     {
-        $png = PNG::fromFile(__DIR__ . '/../Fixtures/nometa.png');
+        $png = PNG::fromFile(__DIR__.'/../Fixtures/nometa.png');
 
         $xmp = $png->getXmp();
 
@@ -80,7 +80,7 @@ class PNGTest extends \PHPUnit_Framework_TestCase
      */
     public function testFromFileValidPNG()
     {
-        $png = PNG::fromFile(__DIR__ . '/../Fixtures/nometa.png');
+        $png = PNG::fromFile(__DIR__.'/../Fixtures/nometa.png');
 
         $this->assertInstanceOf(PNG::class, $png);
     }
@@ -93,7 +93,7 @@ class PNGTest extends \PHPUnit_Framework_TestCase
      */
     public function testFromFileWithMalformedChunks()
     {
-        PNG::fromFile(__DIR__ . '/../Fixtures/malformedchunks.png');
+        PNG::fromFile(__DIR__.'/../Fixtures/malformedchunks.png');
     }
 
     /**
@@ -101,7 +101,7 @@ class PNGTest extends \PHPUnit_Framework_TestCase
      */
     public function testSavePNGWithNewMetaData()
     {
-        $png = PNG::fromFile(__DIR__ . '/../Fixtures/nometa.png');
+        $png = PNG::fromFile(__DIR__.'/../Fixtures/nometa.png');
 
         $png->getXmp()->setHeadline('PHP headline');
 
@@ -118,7 +118,7 @@ class PNGTest extends \PHPUnit_Framework_TestCase
      */
     public function testSavePNGWithUpdatedMetaData()
     {
-        $png = PNG::fromFile(__DIR__ . '/../Fixtures/metapm.png');
+        $png = PNG::fromFile(__DIR__.'/../Fixtures/metapm.png');
         $png->getXmp()->setHeadline('PHP headline');
 
         $tmp = tempnam(sys_get_temp_dir(), 'PNG');
@@ -140,7 +140,7 @@ class PNGTest extends \PHPUnit_Framework_TestCase
         $xmp = new Xmp;
         $xmp->setHeadline('PHP headline');
 
-        $png = PNG::fromFile(__DIR__ . '/../Fixtures/nometa.png');
+        $png = PNG::fromFile(__DIR__.'/../Fixtures/nometa.png');
         $png->setXmp($xmp);
         $png->save($tmp);
 
@@ -153,7 +153,7 @@ class PNGTest extends \PHPUnit_Framework_TestCase
      */
     public function testSavePNGWithoutChanges()
     {
-        $file = __DIR__ . '/../Fixtures/nometa.png';
+        $file = __DIR__.'/../Fixtures/nometa.png';
         $tmp = tempnam(sys_get_temp_dir(), 'PNG');
 
         $png = PNG::fromFile($file);
@@ -170,7 +170,7 @@ class PNGTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetExif()
     {
-        $png = PNG::fromFile(__DIR__ . '/../Fixtures/nometa.png');
+        $png = PNG::fromFile(__DIR__.'/../Fixtures/nometa.png');
         $png->getExif();
     }
 
@@ -182,7 +182,7 @@ class PNGTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetIptc()
     {
-        $png = PNG::fromFile(__DIR__ . '/../Fixtures/nometa.png');
+        $png = PNG::fromFile(__DIR__.'/../Fixtures/nometa.png');
         $png->getIptc();
     }
 }
