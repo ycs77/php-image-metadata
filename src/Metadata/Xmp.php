@@ -1,6 +1,7 @@
 <?php
 namespace Ycs77\ImageMetadata\Metadata;
 
+use Ycs77\ImageMetadata\Contracts\Metadata\Panorama as PanoramaContract;
 use Ycs77\ImageMetadata\Metadata\Panorama\HasPanorama;
 
 /**
@@ -8,7 +9,7 @@ use Ycs77\ImageMetadata\Metadata\Panorama\HasPanorama;
  *
  * @author Daniel Chesterton <daniel@chestertondevelopment.com>
  */
-class Xmp
+class Xmp implements PanoramaContract
 {
     use HasPanorama;
 

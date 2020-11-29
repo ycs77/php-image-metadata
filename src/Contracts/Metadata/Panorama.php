@@ -1,6 +1,6 @@
 <?php
 
-namespace Ycs77\ImageExif\Contracts\Metadata;
+namespace Ycs77\ImageMetadata\Contracts\Metadata;
 
 interface Panorama
 {
