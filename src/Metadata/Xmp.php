@@ -1,4 +1,5 @@
 <?php
+
 namespace Ycs77\ImageMetadata\Metadata;
 
 use Ycs77\ImageMetadata\Contracts\Metadata\Panorama as PanoramaContract;
@@ -13,45 +14,21 @@ class Xmp implements PanoramaContract
 {
     use HasPanorama;
 
-    /**
-     *
-     */
     const IPTC4_XMP_CORE_NS = 'http://iptc.org/std/Iptc4xmpCore/1.0/xmlns/';
 
-    /**
-     *
-     */
     const IPTC4_XMP_EXT_NS = 'http://iptc.org/std/Iptc4xmpExt/2008-02-29/';
 
-    /**
-     *
-     */
     const PHOTOSHOP_NS = 'http://ns.adobe.com/photoshop/1.0/';
 
-    /**
-     *
-     */
     const DC_NS = 'http://purl.org/dc/elements/1.1/';
 
-    /**
-     *
-     */
     const XMP_RIGHTS_NS = 'http://ns.adobe.com/xap/1.0/rights/';
 
-    /**
-     *
-     */
     const RDF_NS = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#';
 
-    /**
-     *
-     */
-    const XMP_NS = "http://ns.adobe.com/xap/1.0/";
+    const XMP_NS = 'http://ns.adobe.com/xap/1.0/';
 
-    /**
-     *
-     */
-    const PHOTO_MECHANIC_NS = "http://ns.camerabits.com/photomechanic/1.0/";
+    const PHOTO_MECHANIC_NS = 'http://ns.camerabits.com/photomechanic/1.0/';
 
     /**
      * @var \DomDocument
@@ -86,7 +63,7 @@ class Xmp implements PanoramaContract
         'xmpRights' => self::XMP_RIGHTS_NS,
         'Iptc4xmpCore' => self::IPTC4_XMP_CORE_NS,
         'Iptc4xmpExt' => self::IPTC4_XMP_EXT_NS,
-        'photomechanic' => self::PHOTO_MECHANIC_NS
+        'photomechanic' => self::PHOTO_MECHANIC_NS,
     ];
 
     /**
@@ -102,7 +79,7 @@ class Xmp implements PanoramaContract
         $this->dom->formatOutput = $formatOutput;
         $this->dom->substituteEntities = false;
 
-        if (!$data) {
+        if (! $data) {
             $data = '<x:xmpmeta xmlns:x="adobe:ns:meta/" />';
         }
 
@@ -138,6 +115,7 @@ class Xmp implements PanoramaContract
     public function setFormatOutput($formatOutput)
     {
         $this->dom->formatOutput = $formatOutput;
+
         return $this;
     }
 
@@ -169,7 +147,7 @@ class Xmp implements PanoramaContract
         $xmp = new self;
 
         foreach ($array as $field => $value) {
-            $setter = 'set' . ucfirst($field);
+            $setter = 'set'.ucfirst($field);
 
             if (method_exists($xmp, $setter) && null !== $value) {
                 $xmp->$setter($value);
@@ -191,7 +169,7 @@ class Xmp implements PanoramaContract
         $rdfDesc = $this->getRDFDescription($ns);
 
         // check for field as an element or an attribute
-        $query = ($checkAttributes)? $field . '|@' . $field: $field;
+        $query = ($checkAttributes) ? $field.'|@'.$field : $field;
         $result = $this->xpath->query($query, $rdfDesc);
 
         if ($result->length) {
@@ -216,6 +194,7 @@ class Xmp implements PanoramaContract
         if ($node) {
             return $node->nodeValue;
         }
+
         return null;
     }
 
@@ -421,12 +400,12 @@ class Xmp implements PanoramaContract
         $prefix = array_search($namespace, $this->namespaces);
 
         $desc = $this->dom->createElementNS(self::RDF_NS, 'rdf:Description');
-        $desc->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:' . $prefix, $namespace);
+        $desc->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:'.$prefix, $namespace);
 
         $rdf = $this->xpath->query('rdf:RDF', $this->dom->documentElement)->item(0);
 
         // check if rdf:RDF element exists, and create it if not
-        if (!$rdf) {
+        if (! $rdf) {
             $rdf = $this->dom->createElementNS(self::RDF_NS, 'rdf:RDF');
             $this->dom->documentElement->appendChild($rdf);
         }
@@ -482,7 +461,7 @@ class Xmp implements PanoramaContract
      */
     private function setList($field, $value, $type, $ns)
     {
-        $result = $this->xpath->query('//rdf:Description/' . $field . '/' . $type . '/rdf:li');
+        $result = $this->xpath->query('//rdf:Description/'.$field.'/'.$type.'/rdf:li');
         $parent = null;
 
         if ($result->length) {
@@ -504,8 +483,7 @@ class Xmp implements PanoramaContract
             $node->appendChild($parent);
         }
 
-
-        if (!$value || (!is_array($value) && count($value) == 0)) {
+        if (! $value || (! is_array($value) && count($value) == 0)) {
             // remove element
             $parent->parentNode->parentNode->removeChild($parent->parentNode);
         } else {
@@ -702,6 +680,7 @@ class Xmp implements PanoramaContract
         if (is_array($seq)) {
             return $seq[0];
         }
+
         return $seq;
     }
 
@@ -1020,11 +999,11 @@ class Xmp implements PanoramaContract
     {
         $contactInfo = $this->getNode('Iptc4xmpCore:CreatorContactInfo', self::IPTC4_XMP_CORE_NS);
 
-        if (!$contactInfo) {
+        if (! $contactInfo) {
             return null;
         }
 
-        $node = $this->xpath->query($field . '|@' . $field, $contactInfo);
+        $node = $this->xpath->query($field.'|@'.$field, $contactInfo);
 
         if ($node->length) {
             return $node->item(0)->nodeValue;
@@ -1219,7 +1198,7 @@ class Xmp implements PanoramaContract
     {
         $date = $this->getAttr('photoshop:DateCreated', self::PHOTOSHOP_NS);
 
-        if (!$date) {
+        if (! $date) {
             return null;
         }
 
@@ -1266,6 +1245,7 @@ class Xmp implements PanoramaContract
     public function setAbout($about)
     {
         $this->about = $about;
+
         return $this;
     }
 
@@ -1291,6 +1271,7 @@ class Xmp implements PanoramaContract
     public function setToolkit($toolkit)
     {
         $this->dom->documentElement->setAttributeNS('adobe:ns:meta/', 'x:xmptk', $toolkit);
+
         return $this;
     }
 
@@ -1313,7 +1294,7 @@ class Xmp implements PanoramaContract
             }
         }
 
-        if (!$hasBegin) {
+        if (! $hasBegin) {
             $this->dom->insertBefore(
                 $this->dom->createProcessingInstruction(
                     'xpacket',
@@ -1323,7 +1304,7 @@ class Xmp implements PanoramaContract
             );
         }
 
-        if (!$hasEnd) {
+        if (! $hasEnd) {
             $this->dom->appendChild($this->dom->createProcessingInstruction('xpacket', 'end="w"')); // append to end
         }
 

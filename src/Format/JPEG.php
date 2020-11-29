@@ -1,10 +1,11 @@
 <?php
+
 namespace Ycs77\ImageMetadata\Format;
 
+use Ycs77\ImageMetadata\Image;
 use Ycs77\ImageMetadata\Metadata\Exif;
 use Ycs77\ImageMetadata\Metadata\Iptc;
 use Ycs77\ImageMetadata\Metadata\Xmp;
-use Ycs77\ImageMetadata\Image;
 
 /**
  * @author Daniel Chesterton <daniel@chestertondevelopment.com>
@@ -66,6 +67,7 @@ class JPEG extends Image
     public function setXmp(Xmp $xmp)
     {
         $this->xmp = $xmp;
+
         return $this;
     }
 
@@ -101,7 +103,7 @@ class JPEG extends Image
         $handle = @fopen($filename, 'wb');
 
         // Check if the file opened successfully
-        if (!$handle) {
+        if (! $handle) {
             throw new \Exception(sprintf('Could not open file %s', $filename));
         }
 
@@ -124,8 +126,8 @@ class JPEG extends Image
 
         // write each segment
         foreach ($this->segments as $segment) {
-            $segmentContent  = sprintf("\xFF%c", $segment->getType()); // marker
-            $segmentContent .= pack("n", strlen($segment->getData()) + 2); // size
+            $segmentContent = sprintf("\xFF%c", $segment->getType()); // marker
+            $segmentContent .= pack('n', strlen($segment->getData()) + 2); // size
             $segmentContent .= $segment->getData();
 
             fwrite($handle, $segmentContent);
@@ -180,6 +182,7 @@ class JPEG extends Image
     public static function fromImagick(\Imagick $imagick)
     {
         $imagick->setImageFormat('jpg');
+
         return self::fromString($imagick->getImageBlob());
     }
 
@@ -215,7 +218,7 @@ class JPEG extends Image
             $imageData = null;
 
             // Cycle through the file until, either an EOI (End of image) marker is hit or end of file is hit
-            while (($data[1] != "\xD9") && (!feof($fileHandle))) {
+            while (($data[1] != "\xD9") && (! feof($fileHandle))) {
                 // Found a segment to look at.
                 // Check that the segment marker is not a restart marker, restart markers don't have size or data
                 if ((ord($data[1]) < 0xD0) || (ord($data[1]) > 0xD7)) {
@@ -234,7 +237,7 @@ class JPEG extends Image
                     $compressedData = '';
                     do {
                         $compressedData .= fread($fileHandle, 1048576);
-                    } while (!feof($fileHandle));
+                    } while (! feof($fileHandle));
 
                     // Strip off EOI and anything after
                     $eoiPos = strpos($compressedData, "\xFF\xD9");
@@ -253,7 +256,6 @@ class JPEG extends Image
             }
 
             return new self($imageData, $segments, $filename);
-
         } finally {
             fclose($fileHandle);
         }
@@ -273,7 +275,7 @@ class JPEG extends Image
     {
         $fileHandle = @fopen($filename, 'rb');
 
-        if (!$fileHandle) {
+        if (! $fileHandle) {
             throw new \Exception(sprintf('Could not open file %s', $filename));
         }
 
@@ -287,18 +289,19 @@ class JPEG extends Image
     {
         $xmp = $this->getXmp();
 
-        if (!$xmp) {
+        if (! $xmp) {
             return;
         }
 
         $renderSegment = function (Xmp $xmp) {
-            return "http://ns.adobe.com/xap/1.0/\x00" . $xmp->getString();
+            return "http://ns.adobe.com/xap/1.0/\x00".$xmp->getString();
         };
 
         foreach ($this->getSegmentsByName('APP1') as $segment) {
             // And if it has the Adobe XMP/RDF label (http://ns.adobe.com/xap/1.0/\x00) ,
             if (strncmp($segment->getData(), "http://ns.adobe.com/xap/1.0/\x00", 29) == 0) {
                 $segment->setData($renderSegment($xmp));
+
                 return;
             }
         }
@@ -322,7 +325,7 @@ class JPEG extends Image
      */
     public function getXmp()
     {
-        if (!$this->xmp) {
+        if (! $this->xmp) {
             $possible = $this->getSegmentsByName('APP1');
             $xmpData = null;
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace Ycs77\ImageMetadata\Metadata;
 
 /**
@@ -58,7 +59,6 @@ class Exif
         $pos += 2;
 
         for ($i = 0; $i < $numberOfTags; $i++) {
-
             $tagNumber = $this->decodeIFDField(substr($data, $pos, 2), 4);
 
             $pos += 2;
@@ -101,7 +101,8 @@ class Exif
             // to return multiple values instead of a single value
 
             echo "<p>Error - ASCII Strings should not be processed in get_IFD_Data_Type</p>\n";
-            return "Error Should never get here"; //explode( "\x00", $input_data );
+
+            return 'Error Should never get here'; //explode( "\x00", $input_data );
         } elseif ($type == 5) {
             // This is a Unsigned rational type
 
@@ -177,25 +178,19 @@ class Exif
             return $value;
         }
         // Check if this is a Float type
-        elseif ( $type == 11 )
-        {
+        elseif ($type == 11) {
             // IEEE 754 Float
             // TODO - EXIF - IFD datatype Float not implemented yet
-            return "FLOAT NOT IMPLEMENTED YET";
+            return 'FLOAT NOT IMPLEMENTED YET';
         }
         // Check if this is a Double type
-        elseif ( $type == 12 )
-        {
+        elseif ($type == 12) {
             // IEEE 754 Double
             // TODO - EXIF - IFD datatype Double not implemented yet
-            return "DOUBLE NOT IMPLEMENTED YET";
-        }
-        else
-        {
+            return 'DOUBLE NOT IMPLEMENTED YET';
+        } else {
             // Error - Invalid Datatype
             return "Invalid Datatype $type";
-
         }
-
     }
 }

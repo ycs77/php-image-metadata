@@ -1,4 +1,5 @@
 <?php
+
 namespace Ycs77\ImageMetadata\Metadata;
 
 /**
@@ -36,11 +37,12 @@ class Exif2
      */
     public static function fromFile($path)
     {
-        if (!function_exists('exif_read_data')) {
+        if (! function_exists('exif_read_data')) {
             throw new \Exception('exif_read_data function is required.');
         }
 
-        $data = exif_read_data($path, null, true) ?: array();
+        $data = exif_read_data($path, null, true) ?: [];
+
         return new self($data);
     }
 
@@ -75,16 +77,17 @@ class Exif2
     /**
      * Get ISO.
      *
-     * @return integer|null
+     * @return int|null
      */
     public function getISO()
     {
         if (isset($this->data['EXIF']['ISOSpeedRatings'])) {
             return $this->data['EXIF']['ISOSpeedRatings'];
         }
+
         return null;
     }
-    
+
     /**
      * Get aperture.
      *
@@ -101,6 +104,7 @@ class Exif2
         } elseif (isset($this->data['XMP']['FNumber'])) {
             return (float) $this->data['XMP']['FNumber'];
         }
+
         return null;
     }
 
@@ -113,7 +117,7 @@ class Exif2
     {
         if (isset($this->data['EXIF']['ExposureProgram'])) {
             $mode = $this->data['EXIF']['ExposureProgram'];
-            $modes = array(
+            $modes = [
                 1 => 'Manual',
                 2 => 'Program',
                 3 => 'Aperture Priority',
@@ -121,13 +125,14 @@ class Exif2
                 5 => 'Creative',
                 6 => 'Action',
                 7 => 'Portrait',
-                8 => 'Landscape'
-            );
+                8 => 'Landscape',
+            ];
 
             if (isset($modes[$mode])) {
                 return $modes[$mode];
             }
         }
+
         return null;
     }
 
@@ -140,7 +145,7 @@ class Exif2
     {
         if (isset($this->data['EXIF']['WhiteBalance'])) {
             $mode = $this->data['EXIF']['WhiteBalance'];
-            $modes = array(
+            $modes = [
                 0 => 'Auto',
                 1 => 'Daylight',
                 2 => 'Cloudy',
@@ -161,20 +166,21 @@ class Exif2
                 18 => 'Custom 3',
                 19 => 'Custom 4',
                 20 => 'PC Set4',
-                21 => 'PC Set5'
-            );
+                21 => 'PC Set5',
+            ];
 
             if (isset($modes[$mode])) {
                 return $modes[$mode];
             }
         }
+
         return null;
     }
 
     /**
      * Get exposure bias.
      *
-     * @return integer|null
+     * @return int|null
      */
     public function getExposureBias()
     {
@@ -187,6 +193,7 @@ class Exif2
                 return $value;
             }
         }
+
         return null;
     }
 
@@ -200,6 +207,7 @@ class Exif2
         if (isset($this->data['IFD0']['Make'])) {
             return trim($this->data['IFD0']['Make']);
         }
+
         return null;
     }
 
@@ -213,6 +221,7 @@ class Exif2
         if (isset($this->data['IFD0']['Model'])) {
             return trim($this->data['IFD0']['Model']);
         }
+
         return null;
     }
 
@@ -226,7 +235,7 @@ class Exif2
         if (isset($this->data['EXIF']['Flash'])) {
             $mode = $this->data['EXIF']['Flash'];
 
-            $modes = array(
+            $modes = [
                 0  => 'Flash did not fire',
                 1  => 'Flash fired',
                 5  => 'Strobe return light not detected',
@@ -248,13 +257,14 @@ class Exif2
                 79 => 'Flash fired, compulsory flash mode, red-eye reduction mode, return light detected',
                 89 => 'Flash fired, auto mode, red-eye reduction mode',
                 93 => 'Flash fired, auto mode, return light not detected, red-eye reduction mode',
-                95 => 'Flash fired, auto mode, return light detected, red-eye reduction mode'
-            );
+                95 => 'Flash fired, auto mode, return light detected, red-eye reduction mode',
+            ];
 
             if (isset($modes[$mode])) {
                 return $modes[$mode];
             }
         }
+
         return null;
     }
 
@@ -285,7 +295,7 @@ class Exif2
             return $model;
         }
 
-        return trim($make . ' ' . $model);
+        return trim($make.' '.$model);
     }
 
     /**
@@ -298,6 +308,7 @@ class Exif2
         if (isset($this->data['EXIF']['ExposureTime'])) {
             return $this->fractionToDecimal($this->data['EXIF']['ExposureTime']);
         }
+
         return null;
     }
 
@@ -311,6 +322,7 @@ class Exif2
         if (isset($this->data['DateTimeDigitized'])) {
             return $this->fractionToDecimal($this->data['DateTimeDigitized']);
         }
+
         return null;
     }
 
@@ -324,6 +336,7 @@ class Exif2
         if (isset($this->data['EXIF']['FocalLength'])) {
             return $this->fractionToDecimal($this->data['EXIF']['FocalLength']);
         }
+
         return null;
     }
 
@@ -345,6 +358,7 @@ class Exif2
         if ($lens && stripos($lens, 'Unknown') !== 0) {
             return $lens;
         }
+
         return null;
     }
 
@@ -365,11 +379,12 @@ class Exif2
 
         if ($software != null) {
             $software = trim($software);
-            
+
             if (preg_match('#^v?[0-9\.]*$#', $software)) {
                 $software = null;
             }
         }
+
         return $software;
     }
 
@@ -387,13 +402,14 @@ class Exif2
         } elseif (isset($this->data['EXIF']['ColorSpace']) && $this->data['EXIF']['ColorSpace'] == 'sRGB') {
             return 'RGB';
         }
+
         return null;
     }
 
     /**
      * Get GPS coordinates.
      *
-     * @return array|null 
+     * @return array|null
      */
     public function getGPS()
     {
@@ -404,11 +420,12 @@ class Exif2
             $latitude = $this->getGPSPart($this->data['GPS']['GPSLatitude'], $this->data['GPS']['GPSLatitudeRef']);
             $longitude = $this->getGPSPart($this->data['GPS']['GPSLongitude'], $this->data['GPS']['GPSLongitudeRef']);
 
-            return array(
+            return [
                 'latitude' => $latitude,
-                'longitude' => $longitude
-            );
+                'longitude' => $longitude,
+            ];
         }
+
         return null;
     }
 
@@ -426,6 +443,7 @@ class Exif2
         if (count($result) == 2) {
             return (float) $result[0] / (float) $result[1];
         }
+
         return $string;
     }
 
@@ -439,24 +457,24 @@ class Exif2
      */
     protected function getGPSPart($exifCoord, $ref)
     {
-        $degrees = count($exifCoord) > 0? $this->fractionToDecimal($exifCoord[0]) : 0;
-        $minutes = count($exifCoord) > 1? $this->fractionToDecimal($exifCoord[1]) : 0;
-        $seconds = count($exifCoord) > 2? $this->fractionToDecimal($exifCoord[2]) : 0;
+        $degrees = count($exifCoord) > 0 ? $this->fractionToDecimal($exifCoord[0]) : 0;
+        $minutes = count($exifCoord) > 1 ? $this->fractionToDecimal($exifCoord[1]) : 0;
+        $seconds = count($exifCoord) > 2 ? $this->fractionToDecimal($exifCoord[2]) : 0;
 
         // store human readable string
-        $string = $degrees . '°' . $minutes . '′' . $seconds . '″' . $ref;
+        $string = $degrees.'°'.$minutes.'′'.$seconds.'″'.$ref;
 
         // calculate the coordinates for use in maps etc.
-        $flip = ($ref == 'W' || $ref == 'S')? -1 : 1;
+        $flip = ($ref == 'W' || $ref == 'S') ? -1 : 1;
         $coordinates = $flip * ($degrees + $minutes / 60 + $seconds / 3600);
 
-        return array(
+        return [
             'degrees' => $degrees,
             'minutes' => $minutes,
             'seconds' => $seconds,
             'reference' => $ref,
             'string' => $string,
-            'coordinates' => $coordinates
-        );
+            'coordinates' => $coordinates,
+        ];
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Ycs77\ImageMetadata\Metadata;
 
 /**
@@ -64,7 +65,7 @@ class Iptc
      * @param string $str String to check for UTF-8.
      *
      * @see https://core.trac.wordpress.org/browser/tags/3.8.1/src/wp-includes/formatting.php
-     * @return boolean
+     * @return bool
      */
     private static function seemsUtf8($str)
     {
@@ -87,54 +88,47 @@ class Iptc
             } else {
                 return false; // Does not match any model
             }
-            for ($j = 0; $j < $n; $j++) { # // bytes matching 10bbbbbb follow ?
+            for ($j = 0; $j < $n; $j++) { // // bytes matching 10bbbbbb follow ?
                 if ((++$i == $length) || ((ord($str[$i]) & 0xC0) != 0x80)) {
                     return false;
                 }
             }
         }
+
         return true;
     }
-    function get_Photoshop_IRB( $jpeg_header_data )
+
+    public function get_Photoshop_IRB($jpeg_header_data)
     {
         // Photoshop Image Resource blocks can span several JPEG APP13 segments, so we need to join them up if there are more than one
-        $joined_IRB = "";
-
+        $joined_IRB = '';
 
         //Cycle through the header segments
-        for( $i = 0; $i < count( $jpeg_header_data ); $i++ )
-        {
+        for ($i = 0; $i < count($jpeg_header_data); $i++) {
             // If we find an APP13 header,
-            if ( strcmp ( $jpeg_header_data[$i]['SegName'], "APP13" ) == 0 )
-            {
+            if (strcmp($jpeg_header_data[$i]['SegName'], 'APP13') == 0) {
                 // And if it has the photoshop label,
-                if( strncmp ( $jpeg_header_data[$i]['SegData'], "Photoshop 3.0\x00", 14) == 0 )
-                {
+                if (strncmp($jpeg_header_data[$i]['SegData'], "Photoshop 3.0\x00", 14) == 0) {
                     // join it to the other previous IRB data
-                    $joined_IRB .= substr ( $jpeg_header_data[$i]['SegData'], 14 );
+                    $joined_IRB .= substr($jpeg_header_data[$i]['SegData'], 14);
                 }
             }
         }
 
         // If there was some Photoshop IRB information found,
-        if ( $joined_IRB != "" )
-        {
+        if ($joined_IRB != '') {
             // Found a Photoshop Image Resource Block - extract it.
             // Change: Moved code into unpack_Photoshop_IRB_Data to allow TIFF reading as of 1.11
-            return unpack_Photoshop_IRB_Data( $joined_IRB );
-
-        }
-        else
-        {
+            return unpack_Photoshop_IRB_Data($joined_IRB);
+        } else {
             // No Photoshop IRB found
-            return FALSE;
+            return false;
         }
-
     }
 
-    public static function  fromJPEG(JPEG $jpeg)
+    public static function fromJPEG(JPEG $jpeg)
     {
-        return new self(array());
+        return new self([]);
         $segments = $jpeg->getSegmentsByName('APP13');
 
         $irb = '';
@@ -150,14 +144,14 @@ class Iptc
             }
         }
 
-        $dataArray = array();
+        $dataArray = [];
 
         if ($irb) {
             $pos = 0;
 
             // Cycle through the IRB and extract its records
             // Records are started with 8BIM, so cycle until no more instances of 8BIM can be found
-            while (($pos < strlen($irb)) && (($pos = strpos($irb, "8BIM", $pos)) !== false)) {
+            while (($pos < strlen($irb)) && (($pos = strpos($irb, '8BIM', $pos)) !== false)) {
                 $pos += 4; // skip over the 8BIM characters
                 $id = ord($irb[$pos]) * 256 + ord($irb[$pos + 1]); // next two characters are record ID
 
@@ -204,8 +198,8 @@ class Iptc
 
                 // Get the description for this resource
                 // Check if this is a Path information Resource, since they have a range of ID's
-                if (($id >= 0x07D0 ) && ($id <= 0x0BB6)) {
-                    $ResDesc = "ID Info : Path Information (saved paths).";
+                if (($id >= 0x07D0) && ($id <= 0x0BB6)) {
+                    $ResDesc = 'ID Info : Path Information (saved paths).';
                 } else {
                     /*
                     if (array_key_exists($id, $GLOBALS[ "Photoshop_ID_Descriptions" ])) {
@@ -213,7 +207,7 @@ class Iptc
                     }
                     else
                     {*/
-                    $ResDesc = "";
+                    $ResDesc = '';
                     //}
                 }
                 /*
@@ -224,15 +218,15 @@ class Iptc
                                 }
                                 else
                                 {*/
-                $ResName = "";
+                $ResName = '';
                 //}
 
                 // Store the Resource in the array to be returned
-                $dataArray[] = ["ResID" => $id,
-                    "ResName" => $ResName,
-                    "ResDesc" => $ResDesc,
-                    "ResEmbeddedName" => $resembeddedname,
-                    "ResData" => $resdata ];
+                $dataArray[] = ['ResID' => $id,
+                    'ResName' => $ResName,
+                    'ResDesc' => $ResDesc,
+                    'ResEmbeddedName' => $resembeddedname,
+                    'ResData' => $resdata, ];
 
                 // Jump over the data to the next record
                 $pos += $storedSize;
@@ -255,13 +249,13 @@ class Iptc
     {
         @getimagesize($path, $info);
 
-        $iptc = (isset($info['APP13']))? iptcparse($info['APP13']): [];
+        $iptc = (isset($info['APP13'])) ? iptcparse($info['APP13']) : [];
         $data = [];
 
         foreach ($iptc as $field => $values) {
             // convert values to UTF-8 if needed
             for ($i = 0; $i < count($values); $i++) {
-                if (!self::seemsUtf8($values[$i])) {
+                if (! self::seemsUtf8($values[$i])) {
                     $values[$i] = utf8_decode($values[$i]);
                 }
             }
@@ -275,7 +269,7 @@ class Iptc
      * Returns data for the given IPTC field. Returns null if the field does not exist.
      *
      * @param string  $field  The field to return.
-     * @param boolean $single Return the first value or all values in field. Defaults to single (true).
+     * @param bool $single Return the first value or all values in field. Defaults to single (true).
      *
      * @return string|null
      */
@@ -284,7 +278,7 @@ class Iptc
         $code = $this->fields[$field];
 
         if (isset($this->data[$code])) {
-            return ($single)? $this->data[$code][0]: $this->data[$code];
+            return ($single) ? $this->data[$code][0] : $this->data[$code];
         }
 
         return null;
@@ -675,8 +669,9 @@ class Iptc
         $time = $this->get('time');
 
         if ($date && $time) {
-            return new \DateTime($date . ' ' . $time);
+            return new \DateTime($date.' '.$time);
         }
+
         return null;
     }
 
@@ -704,7 +699,7 @@ class Iptc
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasChanges()
     {

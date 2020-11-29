@@ -1,4 +1,5 @@
 <?php
+
 namespace Ycs77\ImageMetadata\Format\PNG;
 
 /**
@@ -55,7 +56,7 @@ class Chunk
      */
     public function getChunk()
     {
-        return pack('Na4', $this->getLength(), $this->type) . $this->data . $this->getCrc();
+        return pack('Na4', $this->getLength(), $this->type).$this->data.$this->getCrc();
     }
 
     /**
@@ -63,7 +64,7 @@ class Chunk
      */
     public function getCrc()
     {
-        $crc = crc32($this->type . $this->data);
+        $crc = crc32($this->type.$this->data);
         $hex = str_pad(dechex($crc), 8, '0', STR_PAD_LEFT); // pad to 4 bytes
 
         return hex2bin($hex);
@@ -77,6 +78,7 @@ class Chunk
     public function setData($data)
     {
         $this->data = $data;
+
         return $this;
     }
 }

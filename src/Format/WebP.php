@@ -1,10 +1,11 @@
 <?php
+
 namespace Ycs77\ImageMetadata\Format;
 
+use Ycs77\ImageMetadata\Image;
 use Ycs77\ImageMetadata\Metadata\Exif;
 use Ycs77\ImageMetadata\Metadata\UnsupportedException;
 use Ycs77\ImageMetadata\Metadata\Xmp;
-use Ycs77\ImageMetadata\Image;
 
 /**
  * @author Daniel Chesterton <daniel@chestertondevelopment.com>
@@ -50,7 +51,7 @@ class WebP extends Image
 
         $this->chunks = $this->getChunksFromContents($contents);
 
-        if (!$this->isExtendedFormat()) {
+        if (! $this->isExtendedFormat()) {
 //            throw new \Exception('Only extended WebP format is supported');
         }
 
@@ -62,7 +63,7 @@ class WebP extends Image
      */
     public function getXmp()
     {
-        if (!$this->xmp) {
+        if (! $this->xmp) {
             $chunk = $this->getXmpChunk();
 
             if ($chunk) {
@@ -136,7 +137,7 @@ class WebP extends Image
      */
     public function getExif()
     {
-        if (!$this->exif) {
+        if (! $this->exif) {
             $chunk = $this->getExifChunk();
 
             if ($chunk) {
@@ -248,15 +249,14 @@ class WebP extends Image
         }
 
         if ($hasExtendedFeatures) {
-            if (!$this->isExtendedFormat()) {
+            if (! $this->isExtendedFormat()) {
                 // generate VP8X header
-
             }
 
             return $this->getFile($this->chunks);
-
         } else {
             $chunk = $this->getBitstreamChunk();
+
             return $this->getFile([$chunk]);
         }
     }
@@ -274,8 +274,9 @@ class WebP extends Image
             $data .= $chunk->getChunk();
         }
 
-        $header = 'RIFF' . pack('V', strlen($chunks) + 4) . 'WEBP';
-        return $header . $data;
+        $header = 'RIFF'.pack('V', strlen($chunks) + 4).'WEBP';
+
+        return $header.$data;
     }
 
     /**
@@ -284,6 +285,7 @@ class WebP extends Image
     private function isExtendedFormat()
     {
         $first = $this->chunks[0];
+
         return 'VP8X' === $first->getType();
     }
 }

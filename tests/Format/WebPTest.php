@@ -24,12 +24,12 @@ class WebPTest extends \PHPUnit_Framework_TestCase
      */
     public function testFromFileInvalidWebP()
     {
-        WebP::fromFile(__DIR__ . '/../Fixtures/nometa.jpg');
+        WebP::fromFile(__DIR__.'/../Fixtures/nometa.jpg');
     }
 
     public function testFromFile()
     {
-        $webp = WebP::fromFile(__DIR__ . '/../Fixtures/meta.webp');
+        $webp = WebP::fromFile(__DIR__.'/../Fixtures/meta.webp');
         $this->assertInstanceOf(WebP::class, $webp);
 
         $xmp = $webp->getXmp();
@@ -42,7 +42,7 @@ class WebPTest extends \PHPUnit_Framework_TestCase
     {
         $tmp = tempnam(sys_get_temp_dir(), 'WebP');
 
-        $webp = WebP::fromFile(__DIR__ . '/../Fixtures/meta.webp');
+        $webp = WebP::fromFile(__DIR__.'/../Fixtures/meta.webp');
         $webp->getXmp()->setHeadline('PHP headline');
         $webp->save($tmp);
 
@@ -53,7 +53,7 @@ class WebPTest extends \PHPUnit_Framework_TestCase
 
     public function testGetExif()
     {
-        $webp = WebP::fromFile(__DIR__ . '/../Fixtures/exif.webp');
+        $webp = WebP::fromFile(__DIR__.'/../Fixtures/exif.webp');
         $exif = $webp->getExif();
 
         $this->assertInstanceOf(Exif::class, $exif);
@@ -69,7 +69,7 @@ class WebPTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetIptc()
     {
-        $webp = WebP::fromFile(__DIR__ . '/../Fixtures/meta.webp');
+        $webp = WebP::fromFile(__DIR__.'/../Fixtures/meta.webp');
         $webp->getIptc();
     }
 
@@ -79,7 +79,7 @@ class WebPTest extends \PHPUnit_Framework_TestCase
      */
     public function ttestSimpleUnsupported()
     {
-        WebP::fromFile(__DIR__ . '/../Fixtures/simple.webp');
+        WebP::fromFile(__DIR__.'/../Fixtures/simple.webp');
     }
 
     public function testConvertsFromSimpleFormat()
@@ -87,7 +87,7 @@ class WebPTest extends \PHPUnit_Framework_TestCase
         // todo: mock Xmp class
         $xmp = new Xmp;
 
-        $webp = WebP::fromFile(__DIR__ . '/../Fixtures/simple.webp');
+        $webp = WebP::fromFile(__DIR__.'/../Fixtures/simple.webp');
         $webp->setXmp($xmp);
 
         var_dump($webp->getBytes());

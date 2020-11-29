@@ -2,9 +2,9 @@
 
 namespace Ycs77\ImageMetadata\Tests;
 
-use Ycs77\ImageMetadata\Image;
-use Ycs77\ImageMetadata\Format\PNG;
 use Ycs77\ImageMetadata\Format\JPEG;
+use Ycs77\ImageMetadata\Format\PNG;
+use Ycs77\ImageMetadata\Image;
 
 /**
  * @author Daniel Chesterton <daniel@chestertondevelopment.com>
@@ -18,7 +18,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testPNG()
     {
-        $image = Image::fromFile(__DIR__ . '/Fixtures/nometa.png');
+        $image = Image::fromFile(__DIR__.'/Fixtures/nometa.png');
         $this->assertInstanceOf(PNG::class, $image);
     }
 
@@ -27,7 +27,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testJPG()
     {
-        $image = Image::fromFile(__DIR__ . '/Fixtures/nometa.jpg');
+        $image = Image::fromFile(__DIR__.'/Fixtures/nometa.jpg');
         $this->assertInstanceOf(JPEG::class, $image);
     }
 
@@ -36,7 +36,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testUppercase()
     {
-        $image = Image::fromFile(__DIR__ . '/Fixtures/UPPERCASE.JPG');
+        $image = Image::fromFile(__DIR__.'/Fixtures/UPPERCASE.JPG');
         $this->assertInstanceOf(JPEG::class, $image);
     }
 
@@ -45,7 +45,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testJPEG()
     {
-        $image = Image::fromFile(__DIR__ . '/Fixtures/nometa.jpeg');
+        $image = Image::fromFile(__DIR__.'/Fixtures/nometa.jpeg');
         $this->assertInstanceOf(JPEG::class, $image);
     }
 

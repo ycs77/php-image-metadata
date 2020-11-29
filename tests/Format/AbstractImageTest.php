@@ -2,13 +2,13 @@
 
 namespace Ycs77\ImageMetadata\Tests\Format;
 
+use Mockery as M;
 use Ycs77\ImageMetadata\Image;
 use Ycs77\ImageMetadata\Metadata\Aggregate;
 use Ycs77\ImageMetadata\Metadata\Exif;
 use Ycs77\ImageMetadata\Metadata\Iptc;
 use Ycs77\ImageMetadata\Metadata\UnsupportedException;
 use Ycs77\ImageMetadata\Metadata\Xmp;
-use Mockery as M;
 
 /**
  * @author Daniel Chesterton <daniel@chestertondevelopment.com>
