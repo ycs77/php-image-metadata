@@ -52,7 +52,7 @@ class Iptc
     /**
      * Constructor.
      *
-     * @param array $data
+     * @param  array  $data
      */
     public function __construct($data = [])
     {
@@ -62,9 +62,10 @@ class Iptc
     /**
      * Checks whether the given string looks like UTF-8 content.
      *
-     * @param string $str String to check for UTF-8.
+     * @param  string  $str  String to check for UTF-8.
      *
      * @see https://core.trac.wordpress.org/browser/tags/3.8.1/src/wp-includes/formatting.php
+     *
      * @return bool
      */
     private static function seemsUtf8($str)
@@ -241,8 +242,7 @@ class Iptc
     /**
      * Load IPTC data from an image.
      *
-     * @param string $path The path of the image.
-     *
+     * @param  string  $path  The path of the image.
      * @return self
      */
     public static function fromFile($path)
@@ -268,9 +268,8 @@ class Iptc
     /**
      * Returns data for the given IPTC field. Returns null if the field does not exist.
      *
-     * @param string  $field  The field to return.
-     * @param bool $single Return the first value or all values in field. Defaults to single (true).
-     *
+     * @param  string  $field  The field to return.
+     * @param  bool  $single  Return the first value or all values in field. Defaults to single (true).
      * @return string|null
      */
     private function get($field, $single = true)
@@ -285,9 +284,8 @@ class Iptc
     }
 
     /**
-     * @param string $field
-     * @param mixed  $value
-     *
+     * @param  string  $field
+     * @param  mixed  $value
      * @return $this
      */
     private function set($field, $value)
@@ -309,8 +307,7 @@ class Iptc
     }
 
     /**
-     * @param string $headline
-     *
+     * @param  string  $headline
      * @return $this
      */
     public function setHeadline($headline)
@@ -328,7 +325,6 @@ class Iptc
 
     /**
      * @param $caption
-     *
      * @return $this
      */
     public function setCaption($caption)
@@ -346,7 +342,6 @@ class Iptc
 
     /**
      * @param $location
-     *
      * @return $this
      */
     public function setLocation($location)
@@ -364,7 +359,6 @@ class Iptc
 
     /**
      * @param $city
-     *
      * @return $this
      */
     public function setCity($city)
@@ -382,7 +376,6 @@ class Iptc
 
     /**
      * @param $state
-     *
      * @return $this
      */
     public function setState($state)
@@ -400,7 +393,6 @@ class Iptc
 
     /**
      * @param $country
-     *
      * @return $this
      */
     public function setCountry($country)
@@ -418,7 +410,6 @@ class Iptc
 
     /**
      * @param $countryCode
-     *
      * @return $this
      */
     public function setCountryCode($countryCode)
@@ -436,7 +427,6 @@ class Iptc
 
     /**
      * @param $photographerName
-     *
      * @return $this
      */
     public function setPhotographerName($photographerName)
@@ -454,7 +444,6 @@ class Iptc
 
     /**
      * @param $credit
-     *
      * @return $this
      */
     public function setCredit($credit)
@@ -472,7 +461,6 @@ class Iptc
 
     /**
      * @param $photographerTitle
-     *
      * @return $this
      */
     public function setPhotographerTitle($photographerTitle)
@@ -490,7 +478,6 @@ class Iptc
 
     /**
      * @param $source
-     *
      * @return $this
      */
     public function setSource($source)
@@ -508,7 +495,6 @@ class Iptc
 
     /**
      * @param $copyright
-     *
      * @return $this
      */
     public function setCopyright($copyright)
@@ -526,7 +512,6 @@ class Iptc
 
     /**
      * @param $objectName
-     *
      * @return $this
      */
     public function setObjectName($objectName)
@@ -544,7 +529,6 @@ class Iptc
 
     /**
      * @param $captionWriters
-     *
      * @return $this
      */
     public function setCaptionWriters($captionWriters)
@@ -562,7 +546,6 @@ class Iptc
 
     /**
      * @param $instructions
-     *
      * @return $this
      */
     public function setInstructions($instructions)
@@ -580,7 +563,6 @@ class Iptc
 
     /**
      * @param $category
-     *
      * @return $this
      */
     public function setCategory($category)
@@ -598,7 +580,6 @@ class Iptc
 
     /**
      * @param $supplementalCategories
-     *
      * @return $this
      */
     public function setSupplementalCategories($supplementalCategories)
@@ -616,7 +597,6 @@ class Iptc
 
     /**
      * @param $transmissionReference
-     *
      * @return $this
      */
     public function setTransmissionReference($transmissionReference)
@@ -634,7 +614,6 @@ class Iptc
 
     /**
      * @param $urgency
-     *
      * @return $this
      */
     public function setUrgency($urgency)
@@ -652,7 +631,6 @@ class Iptc
 
     /**
      * @param $keywords
-     *
      * @return $this
      */
     public function setKeywords($keywords)
@@ -676,8 +654,7 @@ class Iptc
     }
 
     /**
-     * @param \DateTime $date
-     *
+     * @param  \DateTime  $date
      * @return $this
      */
     public function setDateCreated(\DateTime $date)

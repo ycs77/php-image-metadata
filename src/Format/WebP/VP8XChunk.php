@@ -10,7 +10,7 @@ class VP8XChunk extends Chunk
     private $hasXmp;
 
     /**
-     * @param string $data
+     * @param  string  $data
      */
     public function __construct($data)
     {

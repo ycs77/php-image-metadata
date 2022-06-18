@@ -15,7 +15,6 @@ interface ImageInterface
 {
     /**
      * @param $filename
-     *
      * @return bool
      */
     public function save($filename = null);
@@ -32,18 +31,21 @@ interface ImageInterface
 
     /**
      * @return Xmp
+     *
      * @throws UnsupportedException
      */
     public function getXmp();
 
     /**
      * @return Exif
+     *
      * @throws UnsupportedException
      */
     public function getExif();
 
     /**
      * @return Iptc
+     *
      * @throws UnsupportedException
      */
     public function getIptc();

@@ -19,8 +19,7 @@ abstract class Image implements ImageInterface
     protected $filename;
 
     /**
-     * @param string $filename
-     *
+     * @param  string  $filename
      * @return $this
      */
     public function setFilename($filename)
@@ -71,10 +70,10 @@ abstract class Image implements ImageInterface
     }
 
     /**
-     * @param string $fileName
+     * @param  string  $fileName
+     * @return ImageInterface
      *
      * @throws \Exception
-     * @return ImageInterface
      *
      * @todo add more sophisticated checks by inspecting file
      */
@@ -103,7 +102,6 @@ abstract class Image implements ImageInterface
 
     /**
      * @param $string
-     *
      * @return JPEG|WebP|PNG|false
      */
     public static function fromString($string)

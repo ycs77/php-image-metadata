@@ -14,8 +14,8 @@ class IRB
     protected $pascalString;
 
     /**
-     * @param string $type
-     * @param string $data
+     * @param  string  $type
+     * @param  string  $data
      */
     public function __construct($resourceId, $pascalString, $data)
     {
@@ -57,8 +57,7 @@ class IRB
     }
 
     /**
-     * @param string $data
-     *
+     * @param  string  $data
      * @return $this
      */
     public function setData($data)

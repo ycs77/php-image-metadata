@@ -19,7 +19,7 @@ class Exif2
     /**
      * Constructor.
      *
-     * @param array $data An array of EXIF data from exif_read_data.
+     * @param  array  $data  An array of EXIF data from exif_read_data.
      */
     public function __construct($data = null)
     {
@@ -29,11 +29,10 @@ class Exif2
     /**
      * Load EXIF data from an image.
      *
-     * @param string $path The path of the image.
+     * @param  string  $path  The path of the image.
+     * @return ExifReader
      *
      * @throws \Exception
-     *
-     * @return ExifReader
      */
     public static function fromFile($path)
     {
@@ -49,8 +48,7 @@ class Exif2
     /**
      * Returns data for the given EXIF field. Returns null if the field does not exist.
      *
-     * @param string $field The field to return.
-     *
+     * @param  string  $field  The field to return.
      * @return string|null
      */
     public function get($field)
@@ -432,8 +430,7 @@ class Exif2
     /**
      * Utility function to convert a fraction as a string into a float.
      *
-     * @param string $string String to convert.
-     *
+     * @param  string  $string  String to convert.
      * @return float
      */
     protected function fractionToDecimal($string)
@@ -450,9 +447,8 @@ class Exif2
     /**
      * Get GPS data from a coordinate.
      *
-     * @param array  $exifCoord An array of values with degrees, minutes and seconds as keys.
-     * @param string $ref       Reference.
-     *
+     * @param  array  $exifCoord  An array of values with degrees, minutes and seconds as keys.
+     * @param  string  $ref  Reference.
      * @return array An array of data about this GPS coordinate.
      */
     protected function getGPSPart($exifCoord, $ref)
