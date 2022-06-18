@@ -24,7 +24,7 @@ class Exif
     /**
      * Constructor.
      *
-     * @param array $data An array of EXIF data from exif_read_data.
+     * @param  array  $data  An array of EXIF data from exif_read_data.
      *
      * @throws \Exception
      */

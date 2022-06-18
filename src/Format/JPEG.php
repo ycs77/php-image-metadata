@@ -43,7 +43,6 @@ class JPEG extends Image
 
     /**
      * @param $name
-     *
      * @return JPEG\Segment[]
      */
     private function getSegmentsByName($name)
@@ -60,8 +59,7 @@ class JPEG extends Image
     }
 
     /**
-     * @param Xmp $xmp
-     *
+     * @param  Xmp  $xmp
      * @return $this
      */
     public function setXmp(Xmp $xmp)
@@ -91,9 +89,10 @@ class JPEG extends Image
     /**
      * Save to file.
      *
-     * @param string $filename
-     * @throws \Exception
+     * @param  string  $filename
      * @return void
+     *
+     * @throws \Exception
      */
     public function save($filename = null)
     {
@@ -175,8 +174,7 @@ class JPEG extends Image
     /**
      * Load a JPEG from an Imagick instance.
      *
-     * @param \Imagick $imagick
-     *
+     * @param  \Imagick  $imagick
      * @return JPEG
      */
     public static function fromImagick(\Imagick $imagick)
@@ -189,10 +187,10 @@ class JPEG extends Image
     /**
      * Load a JPEG from a stream.
      *
-     * @param resource $fileHandle
-     * @param string   $filename
-     *
+     * @param  resource  $fileHandle
+     * @param  string  $filename
      * @return self
+     *
      * @throws \Exception
      */
     public static function fromStream($fileHandle, $filename = null)
@@ -267,8 +265,8 @@ class JPEG extends Image
      * Load a JPEG from a file.
      *
      * @param $filename
-     *
      * @return self
+     *
      * @throws \Exception
      */
     public static function fromFile($filename)

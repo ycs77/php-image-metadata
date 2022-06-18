@@ -66,14 +66,14 @@ class Xmp
     ];
 
     /**
-     * @param string|null $data
-     * @param bool        $formatOutput
+     * @param  string|null  $data
+     * @param  bool  $formatOutput
      *
      * @throws \Exception
      */
     public function __construct($data = null, $formatOutput = false)
     {
-        $this->dom = new \DomDocument('1.0', 'UTF-8');
+        $this->dom = new \DOMDocument('1.0', 'UTF-8');
         $this->dom->preserveWhiteSpace = false;
         $this->dom->formatOutput = $formatOutput;
         $this->dom->substituteEntities = false;
@@ -108,7 +108,7 @@ class Xmp
     }
 
     /**
-     * @param bool $formatOutput
+     * @param  bool  $formatOutput
      * @return $this
      */
     public function setFormatOutput($formatOutput)
@@ -127,8 +127,7 @@ class Xmp
     }
 
     /**
-     * @param string $fileName XMP file to load
-     *
+     * @param  string  $fileName  XMP file to load
      * @return Xmp
      */
     public static function fromFile($fileName)
@@ -138,7 +137,6 @@ class Xmp
 
     /**
      * @param $array
-     *
      * @return Xmp
      */
     public static function fromArray($array)
@@ -157,10 +155,9 @@ class Xmp
     }
 
     /**
-     * @param      $field
-     * @param      $ns
-     * @param bool $checkAttributes
-     *
+     * @param  $field
+     * @param  $ns
+     * @param  bool  $checkAttributes
      * @return \DOMNode|null
      */
     private function getNode($field, $ns, $checkAttributes = true)
@@ -181,9 +178,8 @@ class Xmp
     /**
      * Returns data for the given XMP field. Returns null if the field does not exist.
      *
-     * @param string $field The field to return.
-     * @param string $namespace
-     *
+     * @param  string  $field  The field to return.
+     * @param  string  $namespace
      * @return string|null
      */
     private function getAttr($field, $namespace)
@@ -200,7 +196,6 @@ class Xmp
     /**
      * @param $field
      * @param $namespace
-     *
      * @return array|null
      */
     private function getBag($field, $namespace)
@@ -225,7 +220,6 @@ class Xmp
     /**
      * @param $field
      * @param $namespace
-     *
      * @return null|string
      */
     private function getAlt($field, $namespace)
@@ -246,7 +240,6 @@ class Xmp
     /**
      * @param $field
      * @param $namespace
-     *
      * @return array|null
      */
     private function getSeq($field, $namespace)
@@ -272,7 +265,6 @@ class Xmp
      * @param $field
      * @param $value
      * @param $ns
-     *
      * @return $this
      */
     private function setAttr($field, $value, $ns)
@@ -306,7 +298,6 @@ class Xmp
     /**
      * @param $field
      * @param $value
-     *
      * @return $this
      */
     private function setContactAttr($field, $value)
@@ -353,7 +344,6 @@ class Xmp
 
     /**
      * @param $namespace
-     *
      * @return \DOMNode|null
      */
     private function getRDFDescription($namespace)
@@ -377,7 +367,6 @@ class Xmp
 
     /**
      * @param $namespace
-     *
      * @return \DOMElement|\DOMNode|null
      */
     private function getOrCreateRDFDescription($namespace)
@@ -418,7 +407,6 @@ class Xmp
      * @param $field
      * @param $value
      * @param $ns
-     *
      * @return $this
      */
     private function setBag($field, $value, $ns)
@@ -430,7 +418,6 @@ class Xmp
      * @param $field
      * @param $value
      * @param $ns
-     *
      * @return $this
      */
     private function setAlt($field, $value, $ns)
@@ -442,7 +429,6 @@ class Xmp
      * @param $field
      * @param $value
      * @param $ns
-     *
      * @return $this
      */
     private function setSeq($field, $value, $ns)
@@ -455,7 +441,6 @@ class Xmp
      * @param $value
      * @param $type
      * @param $ns
-     *
      * @return $this
      */
     private function setList($field, $value, $type, $ns)
@@ -515,7 +500,6 @@ class Xmp
      * Set headline.
      *
      * @param $headline string
-     *
      * @return $this
      */
     public function setHeadline($headline)
@@ -533,7 +517,6 @@ class Xmp
 
     /**
      * @param $caption string
-     *
      * @return $this
      */
     public function setCaption($caption)
@@ -551,7 +534,6 @@ class Xmp
 
     /**
      * @param $event string
-     *
      * @return $this
      */
     public function setEvent($event)
@@ -569,7 +551,6 @@ class Xmp
 
     /**
      * @param $location string
-     *
      * @return $this
      */
     public function setLocation($location)
@@ -587,7 +568,6 @@ class Xmp
 
     /**
      * @param $city string
-     *
      * @return $this
      */
     public function setCity($city)
@@ -605,7 +585,6 @@ class Xmp
 
     /**
      * @param $state string
-     *
      * @return $this
      */
     public function setState($state)
@@ -623,7 +602,6 @@ class Xmp
 
     /**
      * @param $country string
-     *
      * @return $this
      */
     public function setCountry($country)
@@ -641,7 +619,6 @@ class Xmp
 
     /**
      * @param $countryCode string
-     *
      * @return $this
      */
     public function setCountryCode($countryCode)
@@ -659,7 +636,6 @@ class Xmp
 
     /**
      * @param $subjectCodes array
-     *
      * @return $this
      */
     public function setIPTCSubjectCodes($subjectCodes)
@@ -685,7 +661,6 @@ class Xmp
 
     /**
      * @param $photographerName string
-     *
      * @return $this
      */
     public function setPhotographerName($photographerName)
@@ -703,7 +678,6 @@ class Xmp
 
     /**
      * @param $credit string
-     *
      * @return $this
      */
     public function setCredit($credit)
@@ -721,7 +695,6 @@ class Xmp
 
     /**
      * @param $photographerTitle string
-     *
      * @return $this
      */
     public function setPhotographerTitle($photographerTitle)
@@ -739,7 +712,6 @@ class Xmp
 
     /**
      * @param $source string
-     *
      * @return $this
      */
     public function setSource($source)
@@ -757,7 +729,6 @@ class Xmp
 
     /**
      * @param $copyright string
-     *
      * @return $this
      */
     public function setCopyright($copyright)
@@ -775,7 +746,6 @@ class Xmp
 
     /**
      * @param $copyrightUrl string
-     *
      * @return $this
      */
     public function setCopyrightUrl($copyrightUrl)
@@ -793,7 +763,6 @@ class Xmp
 
     /**
      * @param $rightsUsageTerms string
-     *
      * @return $this
      */
     public function setRightsUsageTerms($rightsUsageTerms)
@@ -811,7 +780,6 @@ class Xmp
 
     /**
      * @param $objectName string
-     *
      * @return $this
      */
     public function setObjectName($objectName)
@@ -829,7 +797,6 @@ class Xmp
 
     /**
      * @param $captionWriters string
-     *
      * @return $this
      */
     public function setCaptionWriters($captionWriters)
@@ -847,7 +814,6 @@ class Xmp
 
     /**
      * @param $instructions string
-     *
      * @return $this
      */
     public function setInstructions($instructions)
@@ -865,7 +831,6 @@ class Xmp
 
     /**
      * @param $category string
-     *
      * @return $this
      */
     public function setCategory($category)
@@ -883,7 +848,6 @@ class Xmp
 
     /**
      * @param $supplementalCategories array
-     *
      * @return $this
      */
     public function setSupplementalCategories($supplementalCategories)
@@ -901,7 +865,6 @@ class Xmp
 
     /**
      * @param $contactAddress string
-     *
      * @return $this
      */
     public function setContactAddress($contactAddress)
@@ -919,7 +882,6 @@ class Xmp
 
     /**
      * @param $contactCity string
-     *
      * @return $this
      */
     public function setContactCity($contactCity)
@@ -937,7 +899,6 @@ class Xmp
 
     /**
      * @param $contactState string
-     *
      * @return $this
      */
     public function setContactState($contactState)
@@ -955,7 +916,6 @@ class Xmp
 
     /**
      * @param $contactZip string
-     *
      * @return $this
      */
     public function setContactZip($contactZip)
@@ -973,7 +933,6 @@ class Xmp
 
     /**
      * @param $contactCountry string
-     *
      * @return $this
      */
     public function setContactCountry($contactCountry)
@@ -991,7 +950,6 @@ class Xmp
 
     /**
      * @param $field
-     *
      * @return null|string
      */
     private function getContactInfo($field)
@@ -1013,7 +971,6 @@ class Xmp
 
     /**
      * @param $contactEmail string
-     *
      * @return $this
      */
     public function setContactEmail($contactEmail)
@@ -1031,7 +988,6 @@ class Xmp
 
     /**
      * @param $contactPhone string
-     *
      * @return $this
      */
     public function setContactPhone($contactPhone)
@@ -1049,7 +1005,6 @@ class Xmp
 
     /**
      * @param $contactUrl string
-     *
      * @return $this
      */
     public function setContactUrl($contactUrl)
@@ -1067,7 +1022,6 @@ class Xmp
 
     /**
      * @param $keywords array
-     *
      * @return $this
      */
     public function setKeywords($keywords)
@@ -1085,7 +1039,6 @@ class Xmp
 
     /**
      * @param $transmissionReference string
-     *
      * @return $this
      */
     public function setTransmissionReference($transmissionReference)
@@ -1103,7 +1056,6 @@ class Xmp
 
     /**
      * @param $urgency string
-     *
      * @return $this
      */
     public function setUrgency($urgency)
@@ -1121,7 +1073,6 @@ class Xmp
 
     /**
      * @param $rating
-     *
      * @return $this
      */
     public function setRating($rating)
@@ -1145,7 +1096,6 @@ class Xmp
 
     /**
      * @param $creatorTool
-     *
      * @return $this
      */
     public function setCreatorTool($creatorTool)
@@ -1162,8 +1112,7 @@ class Xmp
     }
 
     /**
-     * @param array $personsShown
-     *
+     * @param  array  $personsShown
      * @return $this
      */
     public function setPersonsShown($personsShown)
@@ -1181,7 +1130,6 @@ class Xmp
 
     /**
      * @param $intellectualGenre string
-     *
      * @return $this
      */
     public function setIntellectualGenre($intellectualGenre)
@@ -1214,9 +1162,8 @@ class Xmp
     }
 
     /**
-     * @param \DateTime $dateCreated
-     * @param string    $format
-     *
+     * @param  \DateTime  $dateCreated
+     * @param  string  $format
      * @return $this
      */
     public function setDateCreated(\DateTime $dateCreated, $format = 'c')
@@ -1237,8 +1184,7 @@ class Xmp
     /**
      * According to the XMP spec, the value of this attribute is required but should generally be empty.
      *
-     * @param string $about
-     *
+     * @param  string  $about
      * @return $this
      */
     public function setAbout($about)
@@ -1264,7 +1210,6 @@ class Xmp
 
     /**
      * @param $toolkit
-     *
      * @return $this
      */
     public function setToolkit($toolkit)
@@ -1339,8 +1284,7 @@ class Xmp
     }
 
     /**
-     * @param array $iptcScene
-     *
+     * @param  array  $iptcScene
      * @return $this
      */
     public function setIPTCScene($iptcScene)
@@ -1357,8 +1301,7 @@ class Xmp
     }
 
     /**
-     * @param array $featuredOrganisationName
-     *
+     * @param  array  $featuredOrganisationName
      * @return $this
      */
     public function setFeaturedOrganisationName($featuredOrganisationName)
@@ -1375,8 +1318,7 @@ class Xmp
     }
 
     /**
-     * @param array $featuredOrganisationCode
-     *
+     * @param  array  $featuredOrganisationCode
      * @return $this
      */
     public function setFeaturedOrganisationCode($featuredOrganisationCode)

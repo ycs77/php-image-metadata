@@ -32,8 +32,8 @@ class PNG extends Image
     private $chunks;
 
     /**
-     * @param string $contents
-     * @param string $filename
+     * @param  string  $contents
+     * @param  string  $filename
      *
      * @throws \Exception
      */
@@ -104,8 +104,7 @@ class PNG extends Image
     }
 
     /**
-     * @param Xmp $xmp
-     *
+     * @param  Xmp  $xmp
      * @return $this
      */
     public function setXmp(Xmp $xmp)
@@ -148,7 +147,6 @@ class PNG extends Image
 
     /**
      * @param $filename
-     *
      * @return PNG
      */
     public static function fromFile($filename)
@@ -157,10 +155,10 @@ class PNG extends Image
     }
 
     /**
-     * @param string $contents
+     * @param  string  $contents
+     * @return PNG\Chunk[]
      *
      * @throws \Exception
-     * @return PNG\Chunk[]
      */
     private function getChunksFromContents($contents)
     {

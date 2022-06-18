@@ -477,7 +477,7 @@ class XmpTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param Xmp $xmp
+     * @param  Xmp  $xmp
      */
     private function assertXmpContainsProcessingInstructions(Xmp $xmp)
     {

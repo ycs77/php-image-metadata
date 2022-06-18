@@ -131,8 +131,7 @@ class Segment
     /**
      * Set data.
      *
-     * @param mixed $data
-     *
+     * @param  mixed  $data
      * @return $this
      */
     public function setData($data)
@@ -155,8 +154,7 @@ class Segment
     /**
      * Set start.
      *
-     * @param mixed $start
-     *
+     * @param  mixed  $start
      * @return $this
      */
     public function setStart($start)
@@ -179,8 +177,7 @@ class Segment
     /**
      * Set type.
      *
-     * @param mixed $type
-     *
+     * @param  mixed  $type
      * @return $this
      */
     public function setType($type)

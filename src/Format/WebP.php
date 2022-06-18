@@ -33,8 +33,8 @@ class WebP extends Image
     private $chunks;
 
     /**
-     * @param string $contents
-     * @param string $filename
+     * @param  string  $contents
+     * @param  string  $filename
      *
      * @throws \Exception
      */
@@ -77,8 +77,7 @@ class WebP extends Image
     }
 
     /**
-     * @param Xmp $xmp
-     *
+     * @param  Xmp  $xmp
      * @return $this
      */
     public function setXmp(Xmp $xmp)
@@ -90,8 +89,7 @@ class WebP extends Image
     }
 
     /**
-     * @param string $type
-     *
+     * @param  string  $type
      * @return false|WebP\Chunk
      */
     private function getChunkByType($type)
@@ -160,8 +158,8 @@ class WebP extends Image
 
     /**
      * @param $filename
-     *
      * @return WebP
+     *
      * @throws \Exception
      */
     public static function fromFile($filename)
@@ -171,10 +169,10 @@ class WebP extends Image
     }
 
     /**
-     * @param string $contents
+     * @param  string  $contents
+     * @return WebP\Chunk[]
      *
      * @throws \Exception
-     * @return WebP\Chunk[]
      */
     private function getChunksFromContents($contents)
     {
@@ -262,8 +260,7 @@ class WebP extends Image
     }
 
     /**
-     * @param WebP\Chunk[] $chunks
-     *
+     * @param  WebP\Chunk[]  $chunks
      * @return string
      */
     private function getFile($chunks)

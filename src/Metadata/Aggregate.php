@@ -54,9 +54,9 @@ class Aggregate
     /**
      * Constructor.
      *
-     * @param Xmp  $xmp
-     * @param Iptc $iptc
-     * @param Exif $exif
+     * @param  Xmp  $xmp
+     * @param  Iptc  $iptc
+     * @param  Exif  $exif
      */
     public function __construct(Xmp $xmp = null, Iptc $iptc = null, Exif $exif = null)
     {
@@ -67,9 +67,9 @@ class Aggregate
     }
 
     /**
-     * @param array $priority
-     *
+     * @param  array  $priority
      * @return $this
+     *
      * @throws \Exception
      */
     public function setPriority(array $priority)
@@ -86,8 +86,7 @@ class Aggregate
     }
 
     /**
-     * @param string $field
-     *
+     * @param  string  $field
      * @return string|null
      */
     private function get($field)
@@ -118,7 +117,6 @@ class Aggregate
     /**
      * @param $field
      * @param $value
-     *
      * @return $this
      */
     private function set($field, $value)
@@ -148,8 +146,7 @@ class Aggregate
     }
 
     /**
-     * @param string $headline
-     *
+     * @param  string  $headline
      * @return $this
      */
     public function setHeadline($headline)
@@ -166,8 +163,7 @@ class Aggregate
     }
 
     /**
-     * @param string $caption
-     *
+     * @param  string  $caption
      * @return $this
      */
     public function setCaption($caption)
@@ -184,8 +180,7 @@ class Aggregate
     }
 
     /**
-     * @param string $location
-     *
+     * @param  string  $location
      * @return $this
      */
     public function setLocation($location)
@@ -202,8 +197,7 @@ class Aggregate
     }
 
     /**
-     * @param string $city
-     *
+     * @param  string  $city
      * @return $this
      */
     public function setCity($city)
@@ -220,8 +214,7 @@ class Aggregate
     }
 
     /**
-     * @param string $state
-     *
+     * @param  string  $state
      * @return $this
      */
     public function setState($state)
@@ -238,8 +231,7 @@ class Aggregate
     }
 
     /**
-     * @param string $country
-     *
+     * @param  string  $country
      * @return $this
      */
     public function setCountry($country)
@@ -256,8 +248,7 @@ class Aggregate
     }
 
     /**
-     * @param string $countryCode
-     *
+     * @param  string  $countryCode
      * @return $this
      */
     public function setCountryCode($countryCode)
@@ -274,8 +265,7 @@ class Aggregate
     }
 
     /**
-     * @param string $photographerName
-     *
+     * @param  string  $photographerName
      * @return $this
      */
     public function setPhotographerName($photographerName)
@@ -292,8 +282,7 @@ class Aggregate
     }
 
     /**
-     * @param string $credit
-     *
+     * @param  string  $credit
      * @return $this
      */
     public function setCredit($credit)
@@ -310,8 +299,7 @@ class Aggregate
     }
 
     /**
-     * @param string $photographerTitle
-     *
+     * @param  string  $photographerTitle
      * @return $this
      */
     public function setPhotographerTitle($photographerTitle)
@@ -328,8 +316,7 @@ class Aggregate
     }
 
     /**
-     * @param string $source
-     *
+     * @param  string  $source
      * @return $this
      */
     public function setSource($source)
@@ -346,8 +333,7 @@ class Aggregate
     }
 
     /**
-     * @param string $copyright
-     *
+     * @param  string  $copyright
      * @return $this
      */
     public function setCopyright($copyright)
@@ -364,8 +350,7 @@ class Aggregate
     }
 
     /**
-     * @param string $objectName
-     *
+     * @param  string  $objectName
      * @return $this
      */
     public function setObjectName($objectName)
@@ -382,8 +367,7 @@ class Aggregate
     }
 
     /**
-     * @param string $captionWriters
-     *
+     * @param  string  $captionWriters
      * @return $this
      */
     public function setCaptionWriters($captionWriters)
@@ -400,8 +384,7 @@ class Aggregate
     }
 
     /**
-     * @param string $instructions
-     *
+     * @param  string  $instructions
      * @return $this
      */
     public function setInstructions($instructions)
@@ -418,8 +401,7 @@ class Aggregate
     }
 
     /**
-     * @param string $category
-     *
+     * @param  string  $category
      * @return $this
      */
     public function setCategory($category)
@@ -436,8 +418,7 @@ class Aggregate
     }
 
     /**
-     * @param string $supplementalCategories
-     *
+     * @param  string  $supplementalCategories
      * @return $this
      */
     public function setSupplementalCategories($supplementalCategories)
@@ -454,8 +435,7 @@ class Aggregate
     }
 
     /**
-     * @param string $transmissionReference
-     *
+     * @param  string  $transmissionReference
      * @return $this
      */
     public function setTransmissionReference($transmissionReference)
@@ -472,8 +452,7 @@ class Aggregate
     }
 
     /**
-     * @param string $urgency
-     *
+     * @param  string  $urgency
      * @return $this
      */
     public function setUrgency($urgency)
@@ -490,8 +469,7 @@ class Aggregate
     }
 
     /**
-     * @param mixed $keywords
-     *
+     * @param  mixed  $keywords
      * @return $this
      */
     public function setKeywords($keywords)
@@ -508,8 +486,7 @@ class Aggregate
     }
 
     /**
-     * @param \DateTime $dateCreated
-     *
+     * @param  \DateTime  $dateCreated
      * @return $this
      */
     public function setDateCreated(\DateTime $dateCreated)

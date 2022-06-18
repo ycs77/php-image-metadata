@@ -18,8 +18,8 @@ class Chunk
     protected $data;
 
     /**
-     * @param string $type
-     * @param string $data
+     * @param  string  $type
+     * @param  string  $data
      */
     public function __construct($type, $data)
     {
@@ -68,8 +68,7 @@ class Chunk
     }
 
     /**
-     * @param string $data
-     *
+     * @param  string  $data
      * @return $this
      */
     public function setData($data)
