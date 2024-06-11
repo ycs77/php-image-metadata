@@ -1,5 +1,4 @@
 /vendor
-/.vscode
 /build/coverage-report
 composer.lock
 phpunit.xml
