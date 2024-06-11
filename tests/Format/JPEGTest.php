@@ -2,15 +2,11 @@
 
 namespace Ycs77\ImageMetadata\Tests\Format;
 
+use PHPUnit\Framework\TestCase;
 use Ycs77\ImageMetadata\Format\JPEG;
 use Ycs77\ImageMetadata\Metadata\Xmp;
 
-/**
- * @author Daniel Chesterton <daniel@chestertondevelopment.com>
- *
- * @coversDefaultClass \Ycs77\ImageMetadata\Format\JPEG
- */
-class JPEGTest extends \PHPUnit_Framework_TestCase
+class JPEGTest extends TestCase
 {
     /**
      * Test that JPEG can read XMP embedded with Photo Mechanic.

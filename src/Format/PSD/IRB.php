@@ -4,8 +4,6 @@ namespace Ycs77\ImageMetadata\Format\PSD;
 
 /**
  * Class for Image Resource Blocks.
- *
- * @author Joel Bernerman <joel.bernerman@aller.se>
  */
 class IRB
 {

@@ -2,22 +2,20 @@
 
 namespace Ycs77\ImageMetadata\Tests\Metadata;
 
-use Mockery as M;
+use Exception;
+use Mockery as m;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 use Ycs77\ImageMetadata\Metadata\Aggregate;
 use Ycs77\ImageMetadata\Metadata\Iptc;
 use Ycs77\ImageMetadata\Metadata\Xmp;
 
 /**
  * Unit tests for {@see \Ycs77\ImageMetadata\Metadata\Aggregate}.
- *
- * @coversDefaultClass \Ycs77\ImageMetadata\Metadata\Aggregate
  */
-class AggregateTest extends \PHPUnit_Framework_TestCase
+class AggregateTest extends TestCase
 {
-    /**
-     * @return array
-     */
-    public function getXmpAndIptcFields()
+    public static function getXmpAndIptcFields(): array
     {
         return [
             ['headline'],
@@ -46,9 +44,8 @@ class AggregateTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test the meta fields which only have a value for XMP and IPTC, which is majority.
-     *
-     * @dataProvider getXmpAndIptcFields
      */
+    #[DataProvider('getXmpAndIptcFields')]
     public function testGetXmpIptcField($field)
     {
         $method = 'get'.ucfirst($field);
@@ -56,10 +53,10 @@ class AggregateTest extends \PHPUnit_Framework_TestCase
         $xmpValue = ($field == 'dateCreated') ? new \DateTime : 'XMP value';
         $iptcValue = ($field == 'dateCreated') ? new \DateTime : 'IPTC value';
 
-        $xmp = M::mock(Xmp::class);
+        $xmp = m::mock(Xmp::class);
         $xmp->shouldReceive($method)->once()->andReturn($xmpValue);
 
-        $iptc = M::mock(Iptc::class);
+        $iptc = m::mock(Iptc::class);
         $iptc->shouldReceive($method)->once()->andReturn($iptcValue);
 
         $aggregate = new Aggregate($xmp, $iptc);
@@ -77,17 +74,15 @@ class AggregateTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, $aggregate->$method());
     }
 
-    /**
-     * @dataProvider getXmpAndIptcFields
-     */
+    #[DataProvider('getXmpAndIptcFields')]
     public function testXmpIptcFallThrough($field)
     {
         $method = 'get'.ucfirst($field);
 
-        $xmp = M::mock(Xmp::class);
+        $xmp = m::mock(Xmp::class);
         $xmp->shouldReceive($method)->once()->andReturnNull();
 
-        $iptc = M::mock(Iptc::class);
+        $iptc = m::mock(Iptc::class);
         $iptc->shouldReceive($method)->once()->andReturn('IPTC value');
 
         $aggregate = new Aggregate($xmp, $iptc);
@@ -98,9 +93,8 @@ class AggregateTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test that all fields return null if no providers are set.
-     *
-     * @dataProvider getXmpAndIptcFields
      */
+    #[DataProvider('getXmpAndIptcFields')]
     public function testNullWhenNoProviders($field)
     {
         $reader = new Aggregate;
@@ -110,18 +104,16 @@ class AggregateTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($reader->$getter());
     }
 
-    /**
-     * @dataProvider getXmpAndIptcFields
-     */
+    #[DataProvider('getXmpAndIptcFields')]
     public function testSetXmpIptcField($field)
     {
         $method = 'set'.ucfirst($field);
         $value = ($field == 'dateCreated') ? new \DateTime : 'value';
 
-        $xmp = M::mock(Xmp::class);
+        $xmp = m::mock(Xmp::class);
         $xmp->shouldReceive($method)->once()->with($value);
 
-        $iptc = M::mock(Iptc::class);
+        $iptc = m::mock(Iptc::class);
         $iptc->shouldReceive($method)->once()->with($value);
 
         $aggregate = new Aggregate($xmp, $iptc);
@@ -131,9 +123,7 @@ class AggregateTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($aggregate, $return);
     }
 
-    /**
-     * @dataProvider getXmpAndIptcFields
-     */
+    #[DataProvider('getXmpAndIptcFields')]
     public function testSetXmpIptcFieldWhenNoProviders($field)
     {
         $method = 'set'.ucfirst($field);
@@ -146,12 +136,11 @@ class AggregateTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($aggregate, $return);
     }
 
-    /**
-     * @expectedException \Exception
-     * @expectedExceptionMessage Priority can only contain xmp, iptc or exif
-     */
     public function testInvalidPriority()
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Priority can only contain xmp, iptc or exif');
+
         $reader = new Aggregate;
         $reader->setPriority(['test']);
     }

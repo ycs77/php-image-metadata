@@ -5,12 +5,9 @@ namespace Ycs77\ImageMetadata\Format;
 use Ycs77\ImageMetadata\Image;
 use Ycs77\ImageMetadata\Metadata\Exif;
 use Ycs77\ImageMetadata\Metadata\Iptc;
+use Ycs77\ImageMetadata\Metadata\UnsupportedException;
 use Ycs77\ImageMetadata\Metadata\Xmp;
 
-/**
- * @author Daniel Chesterton <daniel@chestertondevelopment.com>
- * @author Joel Bernerman <joel.bernerman@aller.se>
- */
 class PSD extends Image
 {
     /**
@@ -43,8 +40,8 @@ class PSD extends Image
     /**
      * @param  type  $fileHeader
      * @param  type  $IRBs
-     * @param  type  $soIRS
-     * @param  type  $eoIRS
+     * @param  int  $soIRS
+     * @param  int  $eoIRS
      * @param  type  $filename
      */
     private function __construct($fileHeader, $IRBs, $soIRS, $eoIRS, $tmpHandle, $filename = null)

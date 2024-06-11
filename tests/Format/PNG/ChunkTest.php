@@ -2,20 +2,11 @@
 
 namespace Ycs77\ImageMetadata\Tests\Format;
 
+use PHPUnit\Framework\TestCase;
 use Ycs77\ImageMetadata\Format\PNG\Chunk;
 
-/**
- * @author Daniel Chesterton <daniel@chestertondevelopment.com>
- *
- * @coversDefaultClass \Ycs77\ImageMetadata\Format\PNG\Chunk
- */
-class ChunkTest extends \PHPUnit_Framework_TestCase
+class ChunkTest extends TestCase
 {
-    /**
-     * @covers ::__construct
-     * @covers ::getType
-     * @covers ::getData
-     */
     public function testGetters()
     {
         $chunk = new Chunk('iTXt', 'data');
@@ -24,9 +15,6 @@ class ChunkTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('data', $chunk->getData());
     }
 
-    /**
-     * @covers ::getLength
-     */
     public function testGetLength()
     {
         $chunk = new Chunk('iTXt', 'data');
@@ -34,9 +22,6 @@ class ChunkTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(4, $chunk->getLength());
     }
 
-    /**
-     * @covers ::getCrc
-     */
     public function testGetCRC()
     {
         $chunk = new Chunk('iTXt', 'data');
@@ -44,9 +29,6 @@ class ChunkTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('1d2449b7', bin2hex($chunk->getCrc()));
     }
 
-    /**
-     * @covers ::getChunk
-     */
     public function testGetChunk()
     {
         $chunk = new Chunk('iTXt', 'data');
@@ -54,9 +36,6 @@ class ChunkTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('0000000469545874646174611d2449b7', bin2hex($chunk->getChunk()));
     }
 
-    /**
-     * @covers ::setData
-     */
     public function testSetData()
     {
         $chunk = new Chunk('iTXt', 'data');

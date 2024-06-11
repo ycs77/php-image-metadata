@@ -2,9 +2,6 @@
 
 namespace Ycs77\ImageMetadata\Format\WebP;
 
-/**
- * @author Daniel Chesterton <daniel@chestertondevelopment.com>
- */
 class Chunk
 {
     /**

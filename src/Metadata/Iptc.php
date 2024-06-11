@@ -4,8 +4,6 @@ namespace Ycs77\ImageMetadata\Metadata;
 
 /**
  * Class to read IPTC metadata from an image.
- *
- * @author Daniel Chesterton <daniel@chestertondevelopment.com>
  */
 class Iptc
 {
@@ -256,7 +254,7 @@ class Iptc
             // convert values to UTF-8 if needed
             for ($i = 0; $i < count($values); $i++) {
                 if (! self::seemsUtf8($values[$i])) {
-                    $values[$i] = utf8_decode($values[$i]);
+                    $values[$i] = mb_convert_encoding($values[$i], 'ISO-8859-1', 'UTF-8');
                 }
             }
             $data[$field] = $values;

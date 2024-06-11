@@ -8,9 +8,6 @@ use Ycs77\ImageMetadata\Format\WebP;
 use Ycs77\ImageMetadata\Metadata\Aggregate;
 use Ycs77\ImageMetadata\Metadata\UnsupportedException;
 
-/**
- * @author Daniel Chesterton <daniel@chestertondevelopment.com>
- */
 abstract class Image implements ImageInterface
 {
     /**

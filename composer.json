@@ -16,14 +16,21 @@
         }
     ],
     "require": {
-        "php": ">=5.5"
+        "php": ">=8.2"
     },
     "require-dev": {
-        "mockery/mockery": "~0.9"
+        "mockery/mockery": "^1.6",
+        "phpunit/phpunit": "^11.0.1",
+        "symfony/var-dumper": "^7.1"
     },
     "autoload": {
         "psr-4": {
             "Ycs77\\ImageMetadata\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ycs77\\ImageMetadata\\Tests\\": "tests/"
         }
     }
 }

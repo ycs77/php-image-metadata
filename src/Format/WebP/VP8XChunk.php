@@ -2,13 +2,8 @@
 
 namespace Ycs77\ImageMetadata\Format\WebP;
 
-/**
- * @author Daniel Chesterton <daniel@chestertondevelopment.com>
- */
 class VP8XChunk extends Chunk
 {
-    private $hasXmp;
-
     /**
      * @param  string  $data
      */
@@ -16,8 +11,8 @@ class VP8XChunk extends Chunk
     {
         parent::__construct('VP8X', $data);
 
-        var_dump($this->hasXmp());
-        var_dump($this->hasExif());
+        // var_dump($this->hasXmp());
+        // var_dump($this->hasExif());
     }
 
     private function hasFeature($n)
@@ -38,7 +33,7 @@ class VP8XChunk extends Chunk
 
         $byte = $features[1] & 4;
 
-        var_dump($byte, $features[1]);
+        // var_dump($byte, $features[1]);
 
         $this->data[0] = pack('c', $byte);
 

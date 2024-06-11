@@ -2,14 +2,12 @@
 
 namespace Ycs77\ImageMetadata\Format;
 
+use Imagick;
 use Ycs77\ImageMetadata\Image;
 use Ycs77\ImageMetadata\Metadata\Exif;
 use Ycs77\ImageMetadata\Metadata\Iptc;
 use Ycs77\ImageMetadata\Metadata\Xmp;
 
-/**
- * @author Daniel Chesterton <daniel@chestertondevelopment.com>
- */
 class JPEG extends Image
 {
     const SOI = "\xFF\xD8";
@@ -177,7 +175,7 @@ class JPEG extends Image
      * @param  \Imagick  $imagick
      * @return JPEG
      */
-    public static function fromImagick(\Imagick $imagick)
+    public static function fromImagick(Imagick $imagick)
     {
         $imagick->setImageFormat('jpg');
 

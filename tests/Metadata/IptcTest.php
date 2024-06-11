@@ -2,30 +2,23 @@
 
 namespace Ycs77\ImageMetadata\Tests\Metadata\Reader;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 use Ycs77\ImageMetadata\Metadata\Iptc;
 
-/**
- * @coversDefaultClass \Ycs77\ImageMetadata\Metadata\Iptc
- */
-class IptcTest extends \PHPUnit_Framework_TestCase
+class IptcTest extends TestCase
 {
     /**
      * @var Iptc
      */
     private $meta;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->meta = Iptc::fromFile(__DIR__.'/../Fixtures/metapm.jpg');
     }
 
-    /**
-     * @return array
-     */
-    public function getMetaFields()
+    public static function getMetaFields(): array
     {
         return [
             ['headline'],
@@ -51,9 +44,6 @@ class IptcTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    /**
-     * @covers ::getHeadline
-     */
     public function testHeadline()
     {
         $this->assertEquals('Headline', $this->meta->getHeadline());
@@ -67,9 +57,6 @@ class IptcTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers ::getKeywords
-     */
     public function tesstKeywords()
     {
         $this->assertEquals(
@@ -84,9 +71,7 @@ class IptcTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('SPO', $this->meta->getCategory());
     }
 
-    /**
-     * @dataProvider getMetaFields
-     */
+    #[DataProvider('getMetaFields')]
     public function testGetSetMeta($field)
     {
         $setter = 'set'.ucfirst($field);
@@ -103,9 +88,7 @@ class IptcTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($value, $iptc->$getter());
     }
 
-    /**
-     * @dataProvider getMetaFields
-     */
+    #[DataProvider('getMetaFields')]
     public function testHasChanges($field)
     {
         $setter = 'set'.ucfirst($field);
@@ -121,9 +104,7 @@ class IptcTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($iptc->hasChanges());
     }
 
-    /**
-     * @dataProvider getMetaFields
-     */
+    #[DataProvider('getMetaFields')]
     public function testNull($field)
     {
         $getter = 'get'.ucfirst($field);

@@ -4,8 +4,6 @@ namespace Ycs77\ImageMetadata\Metadata;
 
 /**
  * Class to read EXIF metadata from an image.
- *
- * @author Daniel Chesterton <daniel@chestertondevelopment.com>
  */
 class Exif
 {
@@ -24,7 +22,7 @@ class Exif
     /**
      * Constructor.
      *
-     * @param  array  $data  An array of EXIF data from exif_read_data.
+     * @param  string  $data  An string of EXIF data from exif_read_data.
      *
      * @throws \Exception
      */
@@ -75,7 +73,7 @@ class Exif
 
             $pos += 4;
 
-            //var_dump($tagNumber, $dataLength, $dataLocation);
+            // var_dump($tagNumber, $dataLength, $dataLocation);
         }
     }
 

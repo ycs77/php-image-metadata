@@ -8,9 +8,6 @@ use Ycs77\ImageMetadata\Metadata\Iptc;
 use Ycs77\ImageMetadata\Metadata\UnsupportedException;
 use Ycs77\ImageMetadata\Metadata\Xmp;
 
-/**
- * @author Daniel Chesterton <daniel@chestertondevelopment.com>
- */
 interface ImageInterface
 {
     /**

@@ -2,13 +2,11 @@
 
 namespace Ycs77\ImageMetadata\Tests\Format;
 
+use PHPUnit\Framework\TestCase;
 use Ycs77\ImageMetadata\Format\PSD;
 use Ycs77\ImageMetadata\Metadata\Xmp;
 
-/**
- * @coversDefaultClass \Ycs77\ImageMetadata\Metadata\PSD
- */
-class PsdTest extends \PHPUnit_Framework_TestCase
+class PsdTest extends TestCase
 {
     /**
      * Test that PSD can read XMP embedded with Photoshop.

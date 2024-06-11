@@ -2,17 +2,14 @@
 
 namespace Ycs77\ImageMetadata\Tests\Metadata;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use Ycs77\ImageMetadata\Metadata\Xmp;
 
-/**
- * @coversDefaultClass \Ycs77\ImageMetadata\Metadata\Xmp
- */
-class XmpTest extends \PHPUnit_Framework_TestCase
+class XmpTest extends TestCase
 {
-    /**
-     * @return array
-     */
-    public function getDataForAllFile()
+    public static function getDataForAllFile(): array
     {
         return [
             ['headline', 'Headline'],
@@ -57,10 +54,7 @@ class XmpTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getAltFields()
+    public static function getAltFields(): array
     {
         return [
             ['caption', 'dc:description'],
@@ -70,10 +64,7 @@ class XmpTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getAttrFields()
+    public static function getAttrFields(): array
     {
         return [
             ['location', 'Iptc4xmpCore:Location'],
@@ -106,10 +97,7 @@ class XmpTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getBagFields()
+    public static function getBagFields(): array
     {
         return [
             ['keywords', 'dc:subject'],
@@ -119,9 +107,7 @@ class XmpTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    /**
-     * @dataProvider getDataForAllFile
-     */
+    #[DataProvider('getDataForAllFile')]
     public function testGetDataFromAllFile($field, $value)
     {
         $getter = 'get'.ucfirst($field);
@@ -133,26 +119,20 @@ class XmpTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($value, $xmp->$getter());
     }
 
-    /**
-     * @dataProvider getAltFields
-     */
+    #[DataProvider('getAltFields')]
     public function testSetAltFields($field, $xmlField)
     {
         $this->assertValidList('rdf:Alt', $field, $xmlField, $field);
     }
 
-    /**
-     * @dataProvider getBagFields
-     */
+    #[DataProvider('getBagFields')]
     public function testSetBagFields($field, $xmlField)
     {
         $this->assertValidList('rdf:Bag', $field, $xmlField, $field);
         $this->assertValidList('rdf:Bag', $field, $xmlField, [$field, $field]);
     }
 
-    /**
-     * @dataProvider getAttrFields
-     */
+    #[DataProvider('getAttrFields')]
     public function testSetAttrFields($field, $xmlField)
     {
         $value = 'A test string, with utf €åƒ∂, and some xml chars such as <>"';
@@ -165,25 +145,25 @@ class XmpTest extends \PHPUnit_Framework_TestCase
         $xmp = new Xmp;
         $xmp->$setter($value);
 
-        $this->assertContains($expectedAttr, $xmp->getString());
+        $this->assertStringContainsString($expectedAttr, $xmp->getString());
 
         // test with empty meta data
         $xmp = new Xmp('<x:xmpmeta xmlns:x="adobe:ns:meta/" />');
         $xmp->$setter($value);
 
-        $this->assertContains($expectedAttr, $xmp->getString());
+        $this->assertStringContainsString($expectedAttr, $xmp->getString());
 
         // test with existing meta data
         $xmp = $this->getXmpFromFile();
         $xmp->$setter($value);
 
-        $this->assertContains($expectedAttr, $xmp->getString());
+        $this->assertStringContainsString($expectedAttr, $xmp->getString());
 
         // test with existing meta data
         $xmp = $this->getXmpFromFile2();
         $xmp->$setter($value);
 
-        $this->assertContains($expectedElement, $xmp->getString());
+        $this->assertStringContainsString($expectedElement, $xmp->getString());
     }
 
     public function testSetPhotographerName()
@@ -191,9 +171,6 @@ class XmpTest extends \PHPUnit_Framework_TestCase
         $this->assertValidList('rdf:Seq', 'photographerName', 'dc:creator', 'Photographer Name');
     }
 
-    /**
-     * @covers ::getToolkit
-     */
     public function testGetToolkit()
     {
         $xmp = $this->getXmpFromFile();
@@ -201,29 +178,20 @@ class XmpTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('XMP Core 5.1.2', $xmp->getToolkit());
     }
 
-    /**
-     * @covers ::getToolkit
-     */
     public function testEmptyToolkit()
     {
         $xmp = new Xmp;
         $this->assertNull($xmp->getToolkit());
     }
 
-    /**
-     * @covers ::setToolkit
-     */
     public function testSetToolkit()
     {
         $xmp = new Xmp;
         $xmp->setToolkit('Toolkit 1.2.3');
 
-        $this->assertContains('x:xmptk="Toolkit 1.2.3"', $xmp->getString());
+        $this->assertStringContainsString('x:xmptk="Toolkit 1.2.3"', $xmp->getString());
     }
 
-    /**
-     * @covers ::getXml
-     */
     public function testXmpContainsProcessingInstructions()
     {
         $this->assertXmpContainsProcessingInstructions(new Xmp);
@@ -231,11 +199,7 @@ class XmpTest extends \PHPUnit_Framework_TestCase
         $this->assertXmpContainsProcessingInstructions($this->getXmpFromFile());
     }
 
-    /**
-     * @covers ::fromArray
-     *
-     * @dataProvider getDataForAllFile
-     */
+    #[DataProvider('getDataForAllFile')]
     public function testFromArray($field, $value)
     {
         $getter = 'get'.ucfirst($field);
@@ -245,9 +209,7 @@ class XmpTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($value, $xmp->$getter());
     }
 
-    /**
-     * @dataProvider getDataForAllFile
-     */
+    #[DataProvider('getDataForAllFile')]
     public function testGetNonExistentValue($field)
     {
         $getter = 'get'.ucfirst($field);
@@ -258,9 +220,8 @@ class XmpTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test that changing a single piece of metadata changes state of hasChanges.
-     *
-     * @dataProvider getDataForAllFile
      */
+    #[DataProvider('getDataForAllFile')]
     public function testHasChanges($field, $value)
     {
         $setter = 'set'.ucfirst($field);
@@ -276,8 +237,6 @@ class XmpTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test that a rdf:Bag item returns null when the tag is set but there are no items.
-     *
-     * @covers ::getBag
      */
     public function testGetEmptyBagValue()
     {
@@ -296,8 +255,6 @@ class XmpTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test that a rdf:Bag item returns null when the tag is set but there are no items.
-     *
-     * @covers ::getSeq
      */
     public function testGetEmptySeqValue()
     {
@@ -316,8 +273,6 @@ class XmpTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test that a rdf:Alt item returns null when the tag is set but there are no items.
-     *
-     * @covers ::getAlt
      */
     public function testGetEmptyAltValue()
     {
@@ -334,9 +289,6 @@ class XmpTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($xmp->getRightsUsageTerms());
     }
 
-    /**
-     * @covers ::getContactInfo
-     */
     public function testEmptyContactValue()
     {
         $xmp = new Xmp('<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 5.1.2">
@@ -352,10 +304,6 @@ class XmpTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($xmp->getContactCity());
     }
 
-    /**
-     * @covers ::getAbout
-     * @covers ::setAbout
-     */
     public function testAbout()
     {
         $xmp = new Xmp;
@@ -368,10 +316,6 @@ class XmpTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('about', $xmp->getAbout());
     }
 
-    /**
-     * @covers ::getFormatOutput
-     * @covers ::setFormatOutput
-     */
     public function testFormatOutput()
     {
         $xmp = new Xmp;
@@ -391,12 +335,10 @@ class XmpTest extends \PHPUnit_Framework_TestCase
         $xmp->setSupplementalCategories(['a category', 'another category']);
         $xmp->setSupplementalCategories([]);
 
-        $this->assertNotContains('photoshop:SupplementalCategories', $xmp->getString());
+        $this->assertStringNotContainsString('photoshop:SupplementalCategories', $xmp->getString());
     }
 
-    /**
-     * @dataProvider getAttrFields
-     */
+    #[DataProvider('getAttrFields')]
     public function testSetNullAttribute($field, $xmlField)
     {
         $setter = 'set'.ucfirst($field);
@@ -405,23 +347,19 @@ class XmpTest extends \PHPUnit_Framework_TestCase
         $xmp->$setter($field);
         $xmp->$setter(null);
 
-        $this->assertNotContains($xmlField, $xmp->getString());
+        $this->assertStringNotContainsString($xmlField, $xmp->getString());
 
         $xmp = $this->getXmpFromFile();
         $xmp->$setter(null);
 
-        $this->assertNotContains($xmlField, $xmp->getString());
+        $this->assertStringNotContainsString($xmlField, $xmp->getString());
 
         $xmp = $this->getXmpFromFile2();
         $xmp->$setter(null);
 
-        $this->assertNotContains($xmlField, $xmp->getString());
+        $this->assertStringNotContainsString($xmlField, $xmp->getString());
     }
 
-    /**
-     * @covers ::getDateCreated
-     * @covers ::setDateCreated
-     */
     public function testDateCreated()
     {
         $xmp = new Xmp;
@@ -460,17 +398,14 @@ class XmpTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test that the reader only accepts valid XMP root tag.
-     *
-     * @expectedException \RuntimeException
      */
     public function testInvalidXmlException()
     {
+        $this->expectException(RuntimeException::class);
+
         new Xmp('<myelement />');
     }
 
-    /**
-     * @covers ::fromFile
-     */
     public function testFromFile()
     {
         $this->assertInstanceOf(Xmp::class, Xmp::fromFile(__DIR__.'/../Fixtures/all.XMP'));
@@ -481,8 +416,8 @@ class XmpTest extends \PHPUnit_Framework_TestCase
      */
     private function assertXmpContainsProcessingInstructions(Xmp $xmp)
     {
-        $this->assertContains("<?xpacket begin=\"\xef\xbb\xbf\" id=\"W5M0MpCehiHzreSzNTczkc9d\"?>", $xmp->getString());
-        $this->assertContains('<?xpacket end="w"?>', $xmp->getString());
+        $this->assertStringContainsString("<?xpacket begin=\"\xef\xbb\xbf\" id=\"W5M0MpCehiHzreSzNTczkc9d\"?>", $xmp->getString());
+        $this->assertStringContainsString('<?xpacket end="w"?>', $xmp->getString());
     }
 
     /**
@@ -508,19 +443,19 @@ class XmpTest extends \PHPUnit_Framework_TestCase
         $xmp = new Xmp;
         $xmp->$setter($value);
 
-        $this->assertContains($expected, $xmp->getString());
+        $this->assertStringContainsString($expected, $xmp->getString());
 
         // test setting value on existing meta data
         $xmp = $this->getXmpFromFile();
         $xmp->$setter($value);
 
-        $this->assertContains($expected, $xmp->getString());
+        $this->assertStringContainsString($expected, $xmp->getString());
 
         // test setting value on existing meta data
         $xmp = $this->getXmpFromFile2();
         $xmp->$setter($value);
 
-        $this->assertContains($expected, $xmp->getString());
+        $this->assertStringContainsString($expected, $xmp->getString());
     }
 
     /**

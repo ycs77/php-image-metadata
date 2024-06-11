@@ -2,9 +2,6 @@
 
 namespace Ycs77\ImageMetadata\Format\JPEG;
 
-/**
- * @author Daniel Chesterton <daniel@chestertondevelopment.com>
- */
 class Segment
 {
     private static $segmentNames = [

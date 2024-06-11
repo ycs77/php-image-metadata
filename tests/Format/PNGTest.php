@@ -2,33 +2,25 @@
 
 namespace Ycs77\ImageMetadata\Tests\Format;
 
+use Exception;
+use PHPUnit\Framework\TestCase;
 use Ycs77\ImageMetadata\Format\PNG;
+use Ycs77\ImageMetadata\Metadata\UnsupportedException;
 use Ycs77\ImageMetadata\Metadata\Xmp;
 
-/**
- * @author Daniel Chesterton <daniel@chestertondevelopment.com>
- *
- * @coversDefaultClass \Ycs77\ImageMetadata\Format\PNG
- */
-class PNGTest extends \PHPUnit_Framework_TestCase
+class PNGTest extends TestCase
 {
     /**
      * Test that a non-PNG file throws an exception.
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage Invalid PNG file signature
-     *
-     * @covers ::fromFile
      */
     public function testFromFileInvalidPNG()
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid PNG file signature');
+
         PNG::fromFile(__DIR__.'/../Fixtures/nometa.jpg');
     }
 
-    /**
-     * @covers ::getXmp
-     * @covers ::getXmpChunk
-     */
     public function testGetXmpWithMetadataWrittenInPhotoshop()
     {
         $png = PNG::fromFile(__DIR__.'/../Fixtures/metaphotoshop.png');
@@ -39,10 +31,6 @@ class PNGTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Author', $xmp->getPhotographerName());
     }
 
-    /**
-     * @covers ::getXmp
-     * @covers ::getXmpChunk
-     */
     public function testGetXmpWithMetaWrittenInPhotoMechanic()
     {
         $png = PNG::fromFile(__DIR__.'/../Fixtures/metapm.png');
@@ -53,10 +41,6 @@ class PNGTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Headline', $xmp->getHeadline());
     }
 
-    /**
-     * @covers ::getXmp
-     * @covers ::getXmpChunk
-     */
     public function testGetXmpNoMeta()
     {
         $png = PNG::fromFile(__DIR__.'/../Fixtures/nometa.png');
@@ -73,11 +57,6 @@ class PNGTest extends \PHPUnit_Framework_TestCase
 ', $xmp->getString());
     }
 
-    /**
-     * @covers ::fromFile
-     * @covers ::getChunksFromContents
-     * @covers ::__construct
-     */
     public function testFromFileValidPNG()
     {
         $png = PNG::fromFile(__DIR__.'/../Fixtures/nometa.png');
@@ -85,20 +64,14 @@ class PNGTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(PNG::class, $png);
     }
 
-    /**
-     * @expectedException \Exception
-     * @expectedExceptionMessage Invalid CRC for chunk with type: IHDR
-     *
-     * @covers ::getChunksFromContents
-     */
     public function testFromFileWithMalformedChunks()
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid CRC for chunk with type: IHDR');
+
         PNG::fromFile(__DIR__.'/../Fixtures/malformedchunks.png');
     }
 
-    /**
-     * @covers ::getBytes
-     */
     public function testSavePNGWithNewMetaData()
     {
         $png = PNG::fromFile(__DIR__.'/../Fixtures/nometa.png');
@@ -113,9 +86,6 @@ class PNGTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('PHP headline', $newPng->getXmp()->getHeadline());
     }
 
-    /**
-     * @covers ::getBytes
-     */
     public function testSavePNGWithUpdatedMetaData()
     {
         $png = PNG::fromFile(__DIR__.'/../Fixtures/metapm.png');
@@ -129,10 +99,6 @@ class PNGTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('PHP headline', $newPng->getXmp()->getHeadline());
     }
 
-    /**
-     * @covers ::getBytes
-     * @covers ::setXmp
-     */
     public function testSavePNGWithNewXmpObject()
     {
         $tmp = tempnam(sys_get_temp_dir(), 'PNG');
@@ -148,9 +114,6 @@ class PNGTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('PHP headline', $newPng->getXmp()->getHeadline());
     }
 
-    /**
-     * @covers ::getBytes
-     */
     public function testSavePNGWithoutChanges()
     {
         $file = __DIR__.'/../Fixtures/nometa.png';
@@ -162,26 +125,20 @@ class PNGTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(file_get_contents($file), file_get_contents($tmp));
     }
 
-    /**
-     * @expectedException \Ycs77\ImageMetadata\Metadata\UnsupportedException
-     * @expectedExceptionMessage PNG files do not support EXIF metadata
-     *
-     * @covers ::getExif
-     */
     public function testGetExif()
     {
+        $this->expectException(UnsupportedException::class);
+        $this->expectExceptionMessage('PNG files do not support EXIF metadata');
+
         $png = PNG::fromFile(__DIR__.'/../Fixtures/nometa.png');
         $png->getExif();
     }
 
-    /**
-     * @expectedException \Ycs77\ImageMetadata\Metadata\UnsupportedException
-     * @expectedExceptionMessage PNG files do not support IPTC metadata
-     *
-     * @covers ::getIptc
-     */
     public function testGetIptc()
     {
+        $this->expectException(UnsupportedException::class);
+        $this->expectExceptionMessage('PNG files do not support IPTC metadata');
+
         $png = PNG::fromFile(__DIR__.'/../Fixtures/nometa.png');
         $png->getIptc();
     }

@@ -7,9 +7,6 @@ use Ycs77\ImageMetadata\Metadata\Exif;
 use Ycs77\ImageMetadata\Metadata\UnsupportedException;
 use Ycs77\ImageMetadata\Metadata\Xmp;
 
-/**
- * @author Daniel Chesterton <daniel@chestertondevelopment.com>
- */
 class WebP extends Image
 {
     /**
@@ -271,7 +268,7 @@ class WebP extends Image
             $data .= $chunk->getChunk();
         }
 
-        $header = 'RIFF'.pack('V', strlen($chunks) + 4).'WEBP';
+        $header = 'RIFF'.pack('V', strlen($data) + 4).'WEBP';
 
         return $header.$data;
     }

@@ -6,8 +6,6 @@ use Ycs77\ImageMetadata\Metadata\Panorama\HasPanorama;
 
 /**
  * Class to read XMP metadata from an image.
- *
- * @author Daniel Chesterton <daniel@chestertondevelopment.com>
  */
 class Xmp
 {
@@ -296,8 +294,8 @@ class Xmp
     }
 
     /**
-     * @param $field
-     * @param $value
+     * @param  string  $field
+     * @param  string|null  $value
      * @return $this
      */
     private function setContactAttr($field, $value)
@@ -312,9 +310,11 @@ class Xmp
         }
 
         // try and find child element first
+        /** @var \DOMNode|false $childElement */
         $childElement = false;
 
-        /** @var $child \DOMNode */
+        /** @var \DOMElement|\DOMNode|null $parent */
+        /** @var \DOMNode $child */
         foreach ($parent->childNodes as $child) {
             if ($child->nodeName == $field) {
                 $childElement = $child;
@@ -467,7 +467,7 @@ class Xmp
             $node->appendChild($parent);
         }
 
-        if (! $value || (! is_array($value) && count($value) == 0)) {
+        if (! $value || (! is_array($value) && strlen($value) == 0)) {
             // remove element
             $parent->parentNode->parentNode->removeChild($parent->parentNode);
         } else {

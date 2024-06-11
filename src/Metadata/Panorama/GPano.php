@@ -4,13 +4,14 @@ namespace Ycs77\ImageMetadata\Metadata\Panorama;
 
 use ArrayIterator;
 use IteratorAggregate;
+use Traversable;
 
 /**
  * @see https://developers.google.com/streetview/spherical-metadata
  */
 class GPano implements IteratorAggregate
 {
-    protected $attributes = [];
+    protected array $attributes = [];
 
     public function usePanoramaViewer(bool $usePanoramaViewer)
     {
@@ -122,24 +123,24 @@ class GPano implements IteratorAggregate
         return $this->setAttribute('InitialCameraDolly', $initialCameraDolly);
     }
 
-    protected function setAttribute($attribute, $value)
+    protected function setAttribute(string $attribute, mixed $value)
     {
         $this->attributes[$attribute] = $value;
 
         return $this;
     }
 
-    protected function getAttribute($attribute)
+    protected function getAttribute(string $attribute): mixed
     {
         return $this->attributes[$attribute];
     }
 
-    public function get()
+    public function get(): array
     {
         return $this->attributes;
     }
 
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->attributes);
     }

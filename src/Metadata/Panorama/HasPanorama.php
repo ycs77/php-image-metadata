@@ -3,23 +3,25 @@
 namespace Ycs77\ImageMetadata\Metadata\Panorama;
 
 use Closure;
+use DOMElement;
 
 trait HasPanorama
 {
-    protected $GPanoNS = 'http://ns.google.com/photos/1.0/panorama/';
+    protected string $GPanoNS = 'http://ns.google.com/photos/1.0/panorama/';
 
-    protected function initializePanorama()
+    protected function initializePanorama(): void
     {
         $this->namespaces['GPano'] = $this->GPanoNS;
     }
 
-    public function getPanorama()
+    public function getPanorama(): ?DOMElement
     {
         return $this->getRDFDescription($this->GPanoNS);
     }
 
     public function setPanorama(Closure $callback)
     {
+        /** @var \DOMElement */
         $description = $this->getOrCreateRDFDescription($this->GPanoNS);
         $description->setAttribute('rdf:about', '');
 

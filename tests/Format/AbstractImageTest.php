@@ -2,7 +2,9 @@
 
 namespace Ycs77\ImageMetadata\Tests\Format;
 
-use Mockery as M;
+use Exception;
+use Mockery as m;
+use PHPUnit\Framework\TestCase;
 use Ycs77\ImageMetadata\Image;
 use Ycs77\ImageMetadata\Metadata\Aggregate;
 use Ycs77\ImageMetadata\Metadata\Exif;
@@ -10,53 +12,38 @@ use Ycs77\ImageMetadata\Metadata\Iptc;
 use Ycs77\ImageMetadata\Metadata\UnsupportedException;
 use Ycs77\ImageMetadata\Metadata\Xmp;
 
-/**
- * @author Daniel Chesterton <daniel@chestertondevelopment.com>
- *
- * @coversDefaultClass \Ycs77\ImageMetadata\AbstractImage
- */
-class AbstractImageTest extends \PHPUnit_Framework_TestCase
+class AbstractImageTest extends TestCase
 {
-    /**
-     * @covers ::getAggregate
-     */
     public function testGetAggregate()
     {
         $image = $this->getMockForAbstractImage();
-        $image->expects($this->once())->method('getXmp')->will($this->returnValue(m::mock(Xmp::class)));
-        $image->expects($this->once())->method('getIptc')->will($this->returnValue(m::mock(Iptc::class)));
-        $image->expects($this->once())->method('getExif')->will($this->returnValue(m::mock(Exif::class)));
+        $image->shouldReceive('getXmp')->once()->andReturn(m::mock(Xmp::class));
+        $image->shouldReceive('getIptc')->once()->andReturn(m::mock(Iptc::class));
+        $image->shouldReceive('getExif')->once()->andReturn(m::mock(Exif::class));
 
         $aggregate = $image->getAggregate();
 
         $this->assertInstanceOf(Aggregate::class, $aggregate);
     }
 
-    /**
-     * @covers ::getAggregate
-     */
     public function testGetAggregateWithUnsupportedTypes()
     {
         $image = $this->getMockForAbstractImage();
-        $image->expects($this->once())->method('getXmp')->will($this->throwException(new UnsupportedException));
-        $image->expects($this->once())->method('getIptc')->will($this->throwException(new UnsupportedException));
-        $image->expects($this->once())->method('getExif')->will($this->throwException(new UnsupportedException));
+        $image->shouldReceive('getXmp')->once()->andThrow(new UnsupportedException);
+        $image->shouldReceive('getIptc')->once()->andThrow(new UnsupportedException);
+        $image->shouldReceive('getExif')->once()->andThrow(new UnsupportedException);
 
         $aggregate = $image->getAggregate();
 
         $this->assertInstanceOf(Aggregate::class, $aggregate);
     }
 
-    /**
-     * @covers ::save
-     * @covers ::setFilename
-     */
     public function testSave()
     {
         $tmp = tempnam(sys_get_temp_dir(), 'PNG');
 
         $image = $this->getMockForAbstractImage();
-        $image->expects($this->once())->method('getBytes')->will($this->returnValue('Test'));
+        $image->shouldReceive('getBytes')->once()->andReturn('Test');
 
         $this->assertSame($image, $image->setFilename($tmp)); // test fluid interface
 
@@ -65,36 +52,31 @@ class AbstractImageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Test', file_get_contents($tmp));
     }
 
-    /**
-     * @covers ::save
-     */
     public function testSaveWithFilename()
     {
         $tmp = tempnam(sys_get_temp_dir(), 'PNG');
 
         $image = $this->getMockForAbstractImage();
-        $image->expects($this->once())->method('getBytes')->will($this->returnValue('Test'));
+        $image->shouldReceive('getBytes')->once()->andReturn('Test');
         $image->save($tmp);
 
         $this->assertEquals('Test', file_get_contents($tmp));
     }
 
-    /**
-     * @covers ::save
-     * @expectedException \Exception
-     * @expectedExceptionMessage Must provide a filename
-     */
     public function testSaveWithNoFilename()
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Must provide a filename');
+
         $image = $this->getMockForAbstractImage();
         $image->save();
     }
 
     /**
-     * @return Image|\PHPUnit_Framework_MockObject_MockObject
+     * @return Image|\Mockery\LegacyMockInterface
      */
     private function getMockForAbstractImage()
     {
-        return $this->getMockForAbstractClass(Image::class);
+        return m::mock(Image::class)->makePartial();
     }
 }

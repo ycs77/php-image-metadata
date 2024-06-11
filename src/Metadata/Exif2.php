@@ -4,8 +4,6 @@ namespace Ycs77\ImageMetadata\Metadata;
 
 /**
  * Class to read EXIF metadata from an image.
- *
- * @author Daniel Chesterton <daniel@chestertondevelopment.com>
  */
 class Exif2
 {

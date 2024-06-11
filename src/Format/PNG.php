@@ -6,9 +6,6 @@ use Ycs77\ImageMetadata\Image;
 use Ycs77\ImageMetadata\Metadata\UnsupportedException;
 use Ycs77\ImageMetadata\Metadata\Xmp;
 
-/**
- * @author Daniel Chesterton <daniel@chestertondevelopment.com>
- */
 class PNG extends Image
 {
     /**

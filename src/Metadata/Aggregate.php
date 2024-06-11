@@ -2,33 +2,30 @@
 
 namespace Ycs77\ImageMetadata\Metadata;
 
-/**
- * @author Daniel Chesterton <daniel@chestertondevelopment.com>
- */
 class Aggregate
 {
     private $fields = [
-        'headline' => ['xmp', 'iptc'],
-        'caption' => ['xmp', 'iptc'],
-        'location' => ['xmp', 'iptc'],
-        'city' => ['xmp', 'iptc'],
-        'state' => ['xmp', 'iptc'],
-        'country' => ['xmp', 'iptc'],
-        'countryCode' => ['xmp', 'iptc'],
-        'photographerName' => ['xmp', 'iptc'],
-        'credit' => ['xmp', 'iptc'],
-        'photographerTitle' => ['xmp', 'iptc'],
-        'source' => ['xmp', 'iptc'],
-        'copyright' => ['xmp', 'iptc'],
-        'objectName' => ['xmp', 'iptc'],
-        'captionWriters' => ['xmp', 'iptc'],
-        'instructions' => ['xmp', 'iptc'],
-        'category' => ['xmp', 'iptc'],
+        'headline'               => ['xmp', 'iptc'],
+        'caption'                => ['xmp', 'iptc'],
+        'location'               => ['xmp', 'iptc'],
+        'city'                   => ['xmp', 'iptc'],
+        'state'                  => ['xmp', 'iptc'],
+        'country'                => ['xmp', 'iptc'],
+        'countryCode'            => ['xmp', 'iptc'],
+        'photographerName'       => ['xmp', 'iptc'],
+        'credit'                 => ['xmp', 'iptc'],
+        'photographerTitle'      => ['xmp', 'iptc'],
+        'source'                 => ['xmp', 'iptc'],
+        'copyright'              => ['xmp', 'iptc'],
+        'objectName'             => ['xmp', 'iptc'],
+        'captionWriters'         => ['xmp', 'iptc'],
+        'instructions'           => ['xmp', 'iptc'],
+        'category'               => ['xmp', 'iptc'],
         'supplementalCategories' => ['xmp', 'iptc'],
-        'transmissionReference' => ['xmp', 'iptc'],
-        'urgency' => ['xmp', 'iptc'],
-        'keywords' => ['xmp', 'iptc'],
-        'dateCreated' => ['xmp', 'iptc'],
+        'transmissionReference'  => ['xmp', 'iptc'],
+        'urgency'                => ['xmp', 'iptc'],
+        'keywords'               => ['xmp', 'iptc'],
+        'dateCreated'            => ['xmp', 'iptc'],
     ];
 
     /**
