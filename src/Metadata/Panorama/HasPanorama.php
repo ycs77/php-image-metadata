@@ -23,12 +23,17 @@ trait HasPanorama
     {
         /** @var \DOMElement */
         $description = $this->getOrCreateRDFDescription($this->GPanoNS);
+        $description->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:GPano', $this->GPanoNS);
         $description->setAttribute('rdf:about', '');
 
         $GPano = $callback(new GPano);
 
         foreach ($GPano as $key => $value) {
-            $description->setAttribute("GPano:$key", $value);
+            // $description->setAttribute("GPano:$key", $value);
+
+            /** @var \DOMElement */
+            $element = $this->dom->createElement("GPano:$key", $value);
+            $description->appendChild($element);
         }
 
         return $this;

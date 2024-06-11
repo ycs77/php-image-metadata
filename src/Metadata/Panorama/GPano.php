@@ -15,7 +15,7 @@ class GPano implements IteratorAggregate
 
     public function usePanoramaViewer(bool $usePanoramaViewer)
     {
-        return $this->setAttribute('UsePanoramaViewer', $usePanoramaViewer);
+        return $this->setAttribute('UsePanoramaViewer', $usePanoramaViewer ? 'True' : 'False');
     }
 
     public function captureSoftware(string $captureSoftware)
@@ -85,7 +85,7 @@ class GPano implements IteratorAggregate
 
     public function exposureLockUsed(bool $exposureLockUsed)
     {
-        return $this->setAttribute('ExposureLockUsed', $exposureLockUsed);
+        return $this->setAttribute('ExposureLockUsed', $exposureLockUsed ? 'True' : 'False');
     }
 
     public function croppedAreaImageWidthPixels(int $croppedAreaImageWidthPixels)
