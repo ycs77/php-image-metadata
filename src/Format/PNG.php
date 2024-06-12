@@ -39,7 +39,7 @@ class PNG extends Image
         $signature = substr($contents, 0, 8);
 
         // check PNG signature is present
-        if (self::SIGNATURE !== $signature) {
+        if ($signature !== self::SIGNATURE) {
             throw new \Exception('Invalid PNG file signature');
         }
 
@@ -101,7 +101,6 @@ class PNG extends Image
     }
 
     /**
-     * @param  Xmp  $xmp
      * @return $this
      */
     public function setXmp(Xmp $xmp)
@@ -118,7 +117,7 @@ class PNG extends Image
     private function getXmpChunk()
     {
         foreach ($this->chunks as $chunk) {
-            if ('iTXt' === $chunk->getType() && strncmp($chunk->getData(), 'XML:com.adobe.xmp', 17) === 0) {
+            if ($chunk->getType() === 'iTXt' && strncmp($chunk->getData(), 'XML:com.adobe.xmp', 17) === 0) {
                 return $chunk;
             }
         }
@@ -143,7 +142,6 @@ class PNG extends Image
     }
 
     /**
-     * @param $filename
      * @return PNG
      */
     public static function fromFile($filename)

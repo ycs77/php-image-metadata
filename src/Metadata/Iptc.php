@@ -221,11 +221,13 @@ class Iptc
                 //}
 
                 // Store the Resource in the array to be returned
-                $dataArray[] = ['ResID' => $id,
-                    'ResName' => $ResName,
-                    'ResDesc' => $ResDesc,
+                $dataArray[] = [
+                    'ResID'           => $id,
+                    'ResName'         => $ResName,
+                    'ResDesc'         => $ResDesc,
                     'ResEmbeddedName' => $resembeddedname,
-                    'ResData' => $resdata, ];
+                    'ResData'         => $resdata,
+                ];
 
                 // Jump over the data to the next record
                 $pos += $storedSize;
@@ -322,7 +324,6 @@ class Iptc
     }
 
     /**
-     * @param $caption
      * @return $this
      */
     public function setCaption($caption)
@@ -339,7 +340,6 @@ class Iptc
     }
 
     /**
-     * @param $location
      * @return $this
      */
     public function setLocation($location)
@@ -356,7 +356,6 @@ class Iptc
     }
 
     /**
-     * @param $city
      * @return $this
      */
     public function setCity($city)
@@ -373,7 +372,6 @@ class Iptc
     }
 
     /**
-     * @param $state
      * @return $this
      */
     public function setState($state)
@@ -390,7 +388,6 @@ class Iptc
     }
 
     /**
-     * @param $country
      * @return $this
      */
     public function setCountry($country)
@@ -407,7 +404,6 @@ class Iptc
     }
 
     /**
-     * @param $countryCode
      * @return $this
      */
     public function setCountryCode($countryCode)
@@ -424,7 +420,6 @@ class Iptc
     }
 
     /**
-     * @param $photographerName
      * @return $this
      */
     public function setPhotographerName($photographerName)
@@ -441,7 +436,6 @@ class Iptc
     }
 
     /**
-     * @param $credit
      * @return $this
      */
     public function setCredit($credit)
@@ -458,7 +452,6 @@ class Iptc
     }
 
     /**
-     * @param $photographerTitle
      * @return $this
      */
     public function setPhotographerTitle($photographerTitle)
@@ -475,7 +468,6 @@ class Iptc
     }
 
     /**
-     * @param $source
      * @return $this
      */
     public function setSource($source)
@@ -492,7 +484,6 @@ class Iptc
     }
 
     /**
-     * @param $copyright
      * @return $this
      */
     public function setCopyright($copyright)
@@ -509,7 +500,6 @@ class Iptc
     }
 
     /**
-     * @param $objectName
      * @return $this
      */
     public function setObjectName($objectName)
@@ -526,7 +516,6 @@ class Iptc
     }
 
     /**
-     * @param $captionWriters
      * @return $this
      */
     public function setCaptionWriters($captionWriters)
@@ -543,7 +532,6 @@ class Iptc
     }
 
     /**
-     * @param $instructions
      * @return $this
      */
     public function setInstructions($instructions)
@@ -560,7 +548,6 @@ class Iptc
     }
 
     /**
-     * @param $category
      * @return $this
      */
     public function setCategory($category)
@@ -577,7 +564,6 @@ class Iptc
     }
 
     /**
-     * @param $supplementalCategories
      * @return $this
      */
     public function setSupplementalCategories($supplementalCategories)
@@ -594,7 +580,6 @@ class Iptc
     }
 
     /**
-     * @param $transmissionReference
      * @return $this
      */
     public function setTransmissionReference($transmissionReference)
@@ -611,7 +596,6 @@ class Iptc
     }
 
     /**
-     * @param $urgency
      * @return $this
      */
     public function setUrgency($urgency)
@@ -628,7 +612,6 @@ class Iptc
     }
 
     /**
-     * @param $keywords
      * @return $this
      */
     public function setKeywords($keywords)
@@ -652,7 +635,6 @@ class Iptc
     }
 
     /**
-     * @param  \DateTime  $date
      * @return $this
      */
     public function setDateCreated(\DateTime $date)

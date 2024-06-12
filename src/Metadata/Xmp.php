@@ -53,13 +53,13 @@ class Xmp
      * @var array
      */
     private $namespaces = [
-        'rdf' => self::RDF_NS,
-        'dc' => self::DC_NS,
-        'photoshop' => self::PHOTOSHOP_NS,
-        'xmp' => self::XMP_NS,
-        'xmpRights' => self::XMP_RIGHTS_NS,
-        'Iptc4xmpCore' => self::IPTC4_XMP_CORE_NS,
-        'Iptc4xmpExt' => self::IPTC4_XMP_EXT_NS,
+        'rdf'           => self::RDF_NS,
+        'dc'            => self::DC_NS,
+        'photoshop'     => self::PHOTOSHOP_NS,
+        'xmp'           => self::XMP_NS,
+        'xmpRights'     => self::XMP_RIGHTS_NS,
+        'Iptc4xmpCore'  => self::IPTC4_XMP_CORE_NS,
+        'Iptc4xmpExt'   => self::IPTC4_XMP_EXT_NS,
         'photomechanic' => self::PHOTO_MECHANIC_NS,
     ];
 
@@ -84,7 +84,7 @@ class Xmp
         $this->dom->loadXML($data);
         $this->dom->encoding = 'UTF-8';
 
-        if ('x:xmpmeta' !== $this->dom->documentElement->nodeName) {
+        if ($this->dom->documentElement->nodeName !== 'x:xmpmeta') {
             throw new \RuntimeException('Root node must be of type x:xmpmeta.');
         }
 
@@ -134,7 +134,6 @@ class Xmp
     }
 
     /**
-     * @param $array
      * @return Xmp
      */
     public static function fromArray($array)
@@ -144,7 +143,7 @@ class Xmp
         foreach ($array as $field => $value) {
             $setter = 'set'.ucfirst($field);
 
-            if (method_exists($xmp, $setter) && null !== $value) {
+            if (method_exists($xmp, $setter) && $value !== null) {
                 $xmp->$setter($value);
             }
         }
@@ -153,8 +152,6 @@ class Xmp
     }
 
     /**
-     * @param  $field
-     * @param  $ns
      * @param  bool  $checkAttributes
      * @return \DOMNode|null
      */
@@ -192,8 +189,6 @@ class Xmp
     }
 
     /**
-     * @param $field
-     * @param $namespace
      * @return array|null
      */
     private function getBag($field, $namespace)
@@ -216,8 +211,6 @@ class Xmp
     }
 
     /**
-     * @param $field
-     * @param $namespace
      * @return null|string
      */
     private function getAlt($field, $namespace)
@@ -236,8 +229,6 @@ class Xmp
     }
 
     /**
-     * @param $field
-     * @param $namespace
      * @return array|null
      */
     private function getSeq($field, $namespace)
@@ -260,9 +251,6 @@ class Xmp
     }
 
     /**
-     * @param $field
-     * @param $value
-     * @param $ns
      * @return $this
      */
     private function setAttr($field, $value, $ns)
@@ -271,7 +259,7 @@ class Xmp
         $existingNode = $this->getNode($field, $ns);
 
         if ($existingNode) {
-            if (null === $value) {
+            if ($value === null) {
                 /** @var $desc \DOMElement */
                 $desc = $existingNode->parentNode;
 
@@ -322,7 +310,7 @@ class Xmp
             }
         }
 
-        if (null === $value) {
+        if ($value === null) {
             if ($childElement) {
                 $childElement->parentNode->removeChild($childElement);
             } elseif ($parent->hasAttribute($field)) {
@@ -343,7 +331,6 @@ class Xmp
     }
 
     /**
-     * @param $namespace
      * @return \DOMNode|null
      */
     private function getRDFDescription($namespace)
@@ -366,7 +353,6 @@ class Xmp
     }
 
     /**
-     * @param $namespace
      * @return \DOMElement|\DOMNode|null
      */
     private function getOrCreateRDFDescription($namespace)
@@ -404,9 +390,6 @@ class Xmp
     }
 
     /**
-     * @param $field
-     * @param $value
-     * @param $ns
      * @return $this
      */
     private function setBag($field, $value, $ns)
@@ -415,9 +398,6 @@ class Xmp
     }
 
     /**
-     * @param $field
-     * @param $value
-     * @param $ns
      * @return $this
      */
     private function setAlt($field, $value, $ns)
@@ -426,9 +406,6 @@ class Xmp
     }
 
     /**
-     * @param $field
-     * @param $value
-     * @param $ns
      * @return $this
      */
     private function setSeq($field, $value, $ns)
@@ -437,10 +414,6 @@ class Xmp
     }
 
     /**
-     * @param $field
-     * @param $value
-     * @param $type
-     * @param $ns
      * @return $this
      */
     private function setList($field, $value, $type, $ns)
@@ -499,7 +472,7 @@ class Xmp
     /**
      * Set headline.
      *
-     * @param $headline string
+     * @param  $headline  string
      * @return $this
      */
     public function setHeadline($headline)
@@ -516,7 +489,7 @@ class Xmp
     }
 
     /**
-     * @param $caption string
+     * @param  $caption  string
      * @return $this
      */
     public function setCaption($caption)
@@ -533,7 +506,7 @@ class Xmp
     }
 
     /**
-     * @param $event string
+     * @param  $event  string
      * @return $this
      */
     public function setEvent($event)
@@ -550,7 +523,7 @@ class Xmp
     }
 
     /**
-     * @param $location string
+     * @param  $location  string
      * @return $this
      */
     public function setLocation($location)
@@ -567,7 +540,7 @@ class Xmp
     }
 
     /**
-     * @param $city string
+     * @param  $city  string
      * @return $this
      */
     public function setCity($city)
@@ -584,7 +557,7 @@ class Xmp
     }
 
     /**
-     * @param $state string
+     * @param  $state  string
      * @return $this
      */
     public function setState($state)
@@ -601,7 +574,7 @@ class Xmp
     }
 
     /**
-     * @param $country string
+     * @param  $country  string
      * @return $this
      */
     public function setCountry($country)
@@ -618,7 +591,7 @@ class Xmp
     }
 
     /**
-     * @param $countryCode string
+     * @param  $countryCode  string
      * @return $this
      */
     public function setCountryCode($countryCode)
@@ -635,7 +608,7 @@ class Xmp
     }
 
     /**
-     * @param $subjectCodes array
+     * @param  $subjectCodes  array
      * @return $this
      */
     public function setIPTCSubjectCodes($subjectCodes)
@@ -660,7 +633,7 @@ class Xmp
     }
 
     /**
-     * @param $photographerName string
+     * @param  $photographerName  string
      * @return $this
      */
     public function setPhotographerName($photographerName)
@@ -677,7 +650,7 @@ class Xmp
     }
 
     /**
-     * @param $credit string
+     * @param  $credit  string
      * @return $this
      */
     public function setCredit($credit)
@@ -694,7 +667,7 @@ class Xmp
     }
 
     /**
-     * @param $photographerTitle string
+     * @param  $photographerTitle  string
      * @return $this
      */
     public function setPhotographerTitle($photographerTitle)
@@ -711,7 +684,7 @@ class Xmp
     }
 
     /**
-     * @param $source string
+     * @param  $source  string
      * @return $this
      */
     public function setSource($source)
@@ -728,7 +701,7 @@ class Xmp
     }
 
     /**
-     * @param $copyright string
+     * @param  $copyright  string
      * @return $this
      */
     public function setCopyright($copyright)
@@ -745,7 +718,7 @@ class Xmp
     }
 
     /**
-     * @param $copyrightUrl string
+     * @param  $copyrightUrl  string
      * @return $this
      */
     public function setCopyrightUrl($copyrightUrl)
@@ -762,7 +735,7 @@ class Xmp
     }
 
     /**
-     * @param $rightsUsageTerms string
+     * @param  $rightsUsageTerms  string
      * @return $this
      */
     public function setRightsUsageTerms($rightsUsageTerms)
@@ -779,7 +752,7 @@ class Xmp
     }
 
     /**
-     * @param $objectName string
+     * @param  $objectName  string
      * @return $this
      */
     public function setObjectName($objectName)
@@ -796,7 +769,7 @@ class Xmp
     }
 
     /**
-     * @param $captionWriters string
+     * @param  $captionWriters  string
      * @return $this
      */
     public function setCaptionWriters($captionWriters)
@@ -813,7 +786,7 @@ class Xmp
     }
 
     /**
-     * @param $instructions string
+     * @param  $instructions  string
      * @return $this
      */
     public function setInstructions($instructions)
@@ -830,7 +803,7 @@ class Xmp
     }
 
     /**
-     * @param $category string
+     * @param  $category  string
      * @return $this
      */
     public function setCategory($category)
@@ -847,7 +820,7 @@ class Xmp
     }
 
     /**
-     * @param $supplementalCategories array
+     * @param  $supplementalCategories  array
      * @return $this
      */
     public function setSupplementalCategories($supplementalCategories)
@@ -864,7 +837,7 @@ class Xmp
     }
 
     /**
-     * @param $contactAddress string
+     * @param  $contactAddress  string
      * @return $this
      */
     public function setContactAddress($contactAddress)
@@ -881,7 +854,7 @@ class Xmp
     }
 
     /**
-     * @param $contactCity string
+     * @param  $contactCity  string
      * @return $this
      */
     public function setContactCity($contactCity)
@@ -898,7 +871,7 @@ class Xmp
     }
 
     /**
-     * @param $contactState string
+     * @param  $contactState  string
      * @return $this
      */
     public function setContactState($contactState)
@@ -915,7 +888,7 @@ class Xmp
     }
 
     /**
-     * @param $contactZip string
+     * @param  $contactZip  string
      * @return $this
      */
     public function setContactZip($contactZip)
@@ -932,7 +905,7 @@ class Xmp
     }
 
     /**
-     * @param $contactCountry string
+     * @param  $contactCountry  string
      * @return $this
      */
     public function setContactCountry($contactCountry)
@@ -949,7 +922,6 @@ class Xmp
     }
 
     /**
-     * @param $field
      * @return null|string
      */
     private function getContactInfo($field)
@@ -970,7 +942,7 @@ class Xmp
     }
 
     /**
-     * @param $contactEmail string
+     * @param  $contactEmail  string
      * @return $this
      */
     public function setContactEmail($contactEmail)
@@ -987,7 +959,7 @@ class Xmp
     }
 
     /**
-     * @param $contactPhone string
+     * @param  $contactPhone  string
      * @return $this
      */
     public function setContactPhone($contactPhone)
@@ -1004,7 +976,7 @@ class Xmp
     }
 
     /**
-     * @param $contactUrl string
+     * @param  $contactUrl  string
      * @return $this
      */
     public function setContactUrl($contactUrl)
@@ -1021,7 +993,7 @@ class Xmp
     }
 
     /**
-     * @param $keywords array
+     * @param  $keywords  array
      * @return $this
      */
     public function setKeywords($keywords)
@@ -1038,7 +1010,7 @@ class Xmp
     }
 
     /**
-     * @param $transmissionReference string
+     * @param  $transmissionReference  string
      * @return $this
      */
     public function setTransmissionReference($transmissionReference)
@@ -1055,7 +1027,7 @@ class Xmp
     }
 
     /**
-     * @param $urgency string
+     * @param  $urgency  string
      * @return $this
      */
     public function setUrgency($urgency)
@@ -1072,7 +1044,6 @@ class Xmp
     }
 
     /**
-     * @param $rating
      * @return $this
      */
     public function setRating($rating)
@@ -1095,7 +1066,6 @@ class Xmp
     }
 
     /**
-     * @param $creatorTool
      * @return $this
      */
     public function setCreatorTool($creatorTool)
@@ -1129,7 +1099,7 @@ class Xmp
     }
 
     /**
-     * @param $intellectualGenre string
+     * @param  $intellectualGenre  string
      * @return $this
      */
     public function setIntellectualGenre($intellectualGenre)
@@ -1162,7 +1132,6 @@ class Xmp
     }
 
     /**
-     * @param  \DateTime  $dateCreated
      * @param  string  $format
      * @return $this
      */
@@ -1209,7 +1178,6 @@ class Xmp
     }
 
     /**
-     * @param $toolkit
      * @return $this
      */
     public function setToolkit($toolkit)
@@ -1231,9 +1199,9 @@ class Xmp
         /** @var $item \DOMProcessingInstruction */
         foreach ($result as $item) {
             // do a quick check if the processing instruction contains 'begin' or 'end'
-            if (false !== stripos($item->nodeValue, 'begin')) {
+            if (stripos($item->nodeValue, 'begin') !== false) {
                 $hasBegin = true;
-            } elseif (false !== stripos($item->nodeValue, 'end')) {
+            } elseif (stripos($item->nodeValue, 'end') !== false) {
                 $hasEnd = true;
             }
         }

@@ -57,7 +57,6 @@ class PSD extends Image
     /**
      * Set xmp data.
      *
-     * @param  Xmp  $xmp
      * @return $this
      */
     public function setXmp(Xmp $xmp)
@@ -121,8 +120,6 @@ class PSD extends Image
 
     /**
      * Write PSD data to a stream/file.
-     *
-     * @param $handle
      */
     private function write($handle)
     {
@@ -156,7 +153,6 @@ class PSD extends Image
     /**
      * Load a PSD from a GD image resource.
      *
-     * @param $gd
      * @return self
      */
     public static function fromResource($gd)
@@ -280,7 +276,6 @@ class PSD extends Image
     /**
      * Load a PSD from a file.
      *
-     * @param $filename
      * @return self
      *
      * @throws \Exception

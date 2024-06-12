@@ -33,7 +33,7 @@ class Exif
         $pos = 0;
         $byteAlignment = substr($data, $pos, 2);
 
-        if ('II' !== $byteAlignment && 'MM' !== $byteAlignment) {
+        if ($byteAlignment !== 'II' && $byteAlignment !== 'MM') {
             throw new \Exception('Invalid EXIF byte alignment');
         }
 
@@ -43,7 +43,7 @@ class Exif
 
         $id = substr($data, $pos, 2);
 
-        if (42 !== $this->decodeIFDField($id, 3)) {
+        if ($this->decodeIFDField($id, 3) !== 42) {
             throw new \Exception('Invalid EXIF file');
         }
 
@@ -85,7 +85,7 @@ class Exif
             // This is a Unsigned Byte, Unsigned Short or Unsigned Long
 
             // Check the byte alignment to see if the bytes need tp be reversed
-            if ('II' === $Byte_Align) {
+            if ($Byte_Align === 'II') {
                 $field = strrev($field); // This is in Intel format, reverse it
             }
 
@@ -104,7 +104,7 @@ class Exif
         } elseif ($type == 5) {
             // This is a Unsigned rational type
 
-            if ('MM' === $Byte_Align) {
+            if ($Byte_Align === 'MM') {
                 // Motorola MSB first byte alignment
                 return unpack('NNumerator/NDenominator', $field);
             } else {
@@ -115,7 +115,7 @@ class Exif
             // This is a Signed Byte, Signed Short or Signed Long
 
             // Check the byte alignment to see if the bytes need to be reversed
-            if ('II' === $Byte_Align) {
+            if ($Byte_Align === 'II') {
                 $field = strrev($field); // Intel format, reverse the bytes
             }
 
@@ -150,7 +150,7 @@ class Exif
             // Signed Long not available with endian in unpack , use unsigned and convert
 
             // Check the byte alignment to see if the bytes need to be reversed
-            if ('MM' === $Byte_Align) {
+            if ($Byte_Align === 'MM') {
                 // Motorola MSB first byte aligment
                 $value = unpack('NNumerator/NDenominator', $field);
             } else {

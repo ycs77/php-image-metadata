@@ -98,7 +98,6 @@ abstract class Image implements ImageInterface
     }
 
     /**
-     * @param $string
      * @return JPEG|WebP|PNG|false
      */
     public static function fromString($string)
@@ -107,21 +106,21 @@ abstract class Image implements ImageInterface
 
         // try JPEG
         if ($len >= 2) {
-            if (JPEG::SOI === substr($string, 0, 2)) {
+            if (substr($string, 0, 2) === JPEG::SOI) {
                 return JPEG::fromString($string);
             }
         }
 
         // try WebP
         if ($len >= 4) {
-            if ('RIFF' === substr($string, 0, 4) && 'WEBP' === substr($string, 8, 4)) {
+            if (substr($string, 0, 4) === 'RIFF' && substr($string, 8, 4) === 'WEBP') {
                 return WebP::fromString($string);
             }
         }
 
         // try PNG
         if ($len >= 8) {
-            if (PNG::SIGNATURE === substr($string, 0, 8)) {
+            if (substr($string, 0, 8) === PNG::SIGNATURE) {
                 return PNG::fromString($string);
             }
         }

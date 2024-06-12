@@ -11,7 +11,6 @@ use Ycs77\ImageMetadata\Metadata\Xmp;
 interface ImageInterface
 {
     /**
-     * @param $filename
      * @return bool
      */
     public function save($filename = null);
@@ -21,9 +20,6 @@ interface ImageInterface
      */
     public function getBytes();
 
-    /**
-     * @param $filename
-     */
     public function setFilename($filename);
 
     /**

@@ -28,9 +28,9 @@ class JPEG extends Image
     private $imageData;
 
     /**
-     * @param $imageData string
-     * @param $segments JPEG\Segment[]
-     * @param $filename string
+     * @param  $imageData  string
+     * @param  $segments  JPEG\Segment[]
+     * @param  $filename  string
      */
     private function __construct($imageData, $segments, $filename = null)
     {
@@ -40,7 +40,6 @@ class JPEG extends Image
     }
 
     /**
-     * @param $name
      * @return JPEG\Segment[]
      */
     private function getSegmentsByName($name)
@@ -57,7 +56,6 @@ class JPEG extends Image
     }
 
     /**
-     * @param  Xmp  $xmp
      * @return $this
      */
     public function setXmp(Xmp $xmp)
@@ -111,8 +109,6 @@ class JPEG extends Image
 
     /**
      * Write JPG data to a stream/file.
-     *
-     * @param $handle
      */
     private function write($handle)
     {
@@ -140,7 +136,6 @@ class JPEG extends Image
     /**
      * Load a JPEG from a GD image resource.
      *
-     * @param $gd
      * @return self
      */
     public static function fromResource($gd)
@@ -157,7 +152,6 @@ class JPEG extends Image
     /**
      * Load a JPEG from a string.
      *
-     * @param $string
      * @return self
      */
     public static function fromString($string)
@@ -172,7 +166,6 @@ class JPEG extends Image
     /**
      * Load a JPEG from an Imagick instance.
      *
-     * @param  \Imagick  $imagick
      * @return JPEG
      */
     public static function fromImagick(Imagick $imagick)
@@ -262,7 +255,6 @@ class JPEG extends Image
     /**
      * Load a JPEG from a file.
      *
-     * @param $filename
      * @return self
      *
      * @throws \Exception
@@ -328,7 +320,7 @@ class JPEG extends Image
             foreach ($possible as $segment) {
                 $data = $segment->getData();
 
-                if (0 === strncmp($data, "http://ns.adobe.com/xap/1.0/\x00", 29)) {
+                if (strncmp($data, "http://ns.adobe.com/xap/1.0/\x00", 29) === 0) {
                     $xmpData = substr($data, 29);
                     break;
                 }

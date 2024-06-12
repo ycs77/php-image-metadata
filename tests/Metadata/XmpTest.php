@@ -411,21 +411,12 @@ class XmpTest extends TestCase
         $this->assertInstanceOf(Xmp::class, Xmp::fromFile(__DIR__.'/../Fixtures/all.XMP'));
     }
 
-    /**
-     * @param  Xmp  $xmp
-     */
     private function assertXmpContainsProcessingInstructions(Xmp $xmp)
     {
         $this->assertStringContainsString("<?xpacket begin=\"\xef\xbb\xbf\" id=\"W5M0MpCehiHzreSzNTczkc9d\"?>", $xmp->getString());
         $this->assertStringContainsString('<?xpacket end="w"?>', $xmp->getString());
     }
 
-    /**
-     * @param $type
-     * @param $field
-     * @param $xmlField
-     * @param $value
-     */
     private function assertValidList($type, $field, $xmlField, $value)
     {
         $attributes = ($type == 'rdf:Alt') ? ' xml:lang="x-default"' : '';

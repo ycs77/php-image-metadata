@@ -38,18 +38,18 @@ class WebP extends Image
     public function __construct($contents, $filename = null)
     {
         // check header
-        if ('RIFF' !== substr($contents, 0, 4)) {
+        if (substr($contents, 0, 4) !== 'RIFF') {
             throw new \Exception('Invalid WebP file');
         }
 
-        if ('WEBP' !== substr($contents, 8, 4)) {
+        if (substr($contents, 8, 4) !== 'WEBP') {
             throw new \Exception('Invalid WebP file');
         }
 
         $this->chunks = $this->getChunksFromContents($contents);
 
         if (! $this->isExtendedFormat()) {
-//            throw new \Exception('Only extended WebP format is supported');
+            //            throw new \Exception('Only extended WebP format is supported');
         }
 
         $this->filename = $filename;
@@ -74,7 +74,6 @@ class WebP extends Image
     }
 
     /**
-     * @param  Xmp  $xmp
      * @return $this
      */
     public function setXmp(Xmp $xmp)
@@ -154,7 +153,6 @@ class WebP extends Image
     }
 
     /**
-     * @param $filename
      * @return WebP
      *
      * @throws \Exception
@@ -199,7 +197,7 @@ class WebP extends Image
 
             // var_dump($chunkType);
 
-            if ('VP8X' === $chunkType) {
+            if ($chunkType === 'VP8X') {
                 $chunks[] = new WebP\VP8XChunk($payload);
             } else {
                 $chunks[] = new WebP\Chunk($chunkType, $payload);
@@ -280,6 +278,6 @@ class WebP extends Image
     {
         $first = $this->chunks[0];
 
-        return 'VP8X' === $first->getType();
+        return $first->getType() === 'VP8X';
     }
 }

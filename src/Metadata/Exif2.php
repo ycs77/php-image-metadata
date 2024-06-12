@@ -142,16 +142,16 @@ class Exif2
         if (isset($this->data['EXIF']['WhiteBalance'])) {
             $mode = $this->data['EXIF']['WhiteBalance'];
             $modes = [
-                0 => 'Auto',
-                1 => 'Daylight',
-                2 => 'Cloudy',
-                3 => 'Tungsten',
-                4 => 'Fluorescent',
-                5 => 'Flash',
-                6 => 'Custom',
-                7 => 'Black & White',
-                8 => 'Shade',
-                9 => 'Manual Temperature (Kelvin)',
+                0  => 'Auto',
+                1  => 'Daylight',
+                2  => 'Cloudy',
+                3  => 'Tungsten',
+                4  => 'Fluorescent',
+                5  => 'Flash',
+                6  => 'Custom',
+                7  => 'Black & White',
+                8  => 'Shade',
+                9  => 'Manual Temperature (Kelvin)',
                 10 => 'PC Set1',
                 11 => 'PC Set2',
                 12 => 'PC Set3',
@@ -417,7 +417,7 @@ class Exif2
             $longitude = $this->getGPSPart($this->data['GPS']['GPSLongitude'], $this->data['GPS']['GPSLongitudeRef']);
 
             return [
-                'latitude' => $latitude,
+                'latitude'  => $latitude,
                 'longitude' => $longitude,
             ];
         }
@@ -463,11 +463,11 @@ class Exif2
         $coordinates = $flip * ($degrees + $minutes / 60 + $seconds / 3600);
 
         return [
-            'degrees' => $degrees,
-            'minutes' => $minutes,
-            'seconds' => $seconds,
-            'reference' => $ref,
-            'string' => $string,
+            'degrees'     => $degrees,
+            'minutes'     => $minutes,
+            'seconds'     => $seconds,
+            'reference'   => $ref,
+            'string'      => $string,
             'coordinates' => $coordinates,
         ];
     }

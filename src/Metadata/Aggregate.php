@@ -50,12 +50,8 @@ class Aggregate
 
     /**
      * Constructor.
-     *
-     * @param  Xmp  $xmp
-     * @param  Iptc  $iptc
-     * @param  Exif  $exif
      */
-    public function __construct(Xmp $xmp = null, Iptc $iptc = null, Exif $exif = null)
+    public function __construct(?Xmp $xmp = null, ?Iptc $iptc = null, ?Exif $exif = null)
     {
         $this->xmp = $xmp;
         $this->iptc = $iptc;
@@ -64,7 +60,6 @@ class Aggregate
     }
 
     /**
-     * @param  array  $priority
      * @return $this
      *
      * @throws \Exception
@@ -112,8 +107,6 @@ class Aggregate
     }
 
     /**
-     * @param $field
-     * @param $value
      * @return $this
      */
     private function set($field, $value)
@@ -483,7 +476,6 @@ class Aggregate
     }
 
     /**
-     * @param  \DateTime  $dateCreated
      * @return $this
      */
     public function setDateCreated(\DateTime $dateCreated)
