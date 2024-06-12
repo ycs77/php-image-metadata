@@ -5,6 +5,10 @@ namespace Ycs77\ImageMetadata\Metadata\Panorama;
 use Closure;
 use DOMElement;
 
+/**
+ * @property \DomDocument $dom
+ * @property \DOMXPath $xpath
+ */
 trait HasPanorama
 {
     protected string $GPanoNS = 'http://ns.google.com/photos/1.0/panorama/';
@@ -31,9 +35,14 @@ trait HasPanorama
         foreach ($GPano as $key => $value) {
             // $description->setAttribute("GPano:$key", $value);
 
-            /** @var \DOMElement */
-            $element = $this->dom->createElement("GPano:$key", $value);
-            $description->appendChild($element);
+            if ($element = $this->xpath->query("GPano:$key", $description)->item(0)) {
+                $element->nodeValue = $value;
+                continue;
+            }
+
+            if ($element = $this->dom->createElement("GPano:$key", $value)) {
+                $description->appendChild($element);
+            }
         }
 
         return $this;
